@@ -24,7 +24,6 @@ const DISTRICT_HISTORICAL_DATA: Record<string, {
   'RongKwang': { color: '#f97316', status: 'Moderate Vulnerability', avgRainfall: 1120, avgWaterLevel: 6.8 },
   'SungMen': { color: '#f97316', status: 'Moderate Vulnerability', avgRainfall: 1200, avgWaterLevel: 8.1 },
   'WangChin': { color: '#22c55e', status: 'Safe Zone', avgRainfall: 850, avgWaterLevel: 4.3 },
-  'WangChin': { color: '#22c55e', status: 'Safe Zone', avgRainfall: 850, avgWaterLevel: 4.3 },
   'NongMuangKai': { color: '#22c55e', status: 'Safe Zone', avgRainfall: 890, avgWaterLevel: 4.8 },
 };
 
