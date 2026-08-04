@@ -18,6 +18,7 @@ const initialState: DashboardState = {
   lastUpdateTime: new Date().toISOString(),
   isConnected: true,
   error: null,
+  selectedDistrict: null,
 };
 
 // ===== DASHBOARD SLICE =====
@@ -85,6 +86,10 @@ const dashboardSlice = createSlice({
     setError(state, action: PayloadAction<string | null>) {
       state.error = action.payload;
     },
+    
+    setSelectedDistrict(state, action: PayloadAction<string | null>) {
+      state.selectedDistrict = action.payload;
+    },
   },
 });
 
@@ -94,6 +99,7 @@ export const {
   setGlobalStatus,
   setConnectionStatus,
   setError,
+  setSelectedDistrict,
 } = dashboardSlice.actions;
 
 // ===== STORE =====

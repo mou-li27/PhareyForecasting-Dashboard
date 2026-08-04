@@ -78,4 +78,5 @@ export interface DashboardState {
   lastUpdateTime: string;
   isConnected: boolean;
   error: string | null;
+  selectedDistrict: string | null;
 }

@@ -8,8 +8,8 @@ import { CRITICAL_POLL_INTERVAL } from '@/lib/constants';
 import Header from './Header';
 import MapPanel from './MapPanel';
 import StationFocus from './StationFocus';
-import UpstreamStatus from './UpstreamStatus';
-import ForecastTimeline from './ForecastTimeline';
+import HistoricalData from './HistoricalData';
+import AnalyticalVisualization from './AnalyticalVisualization';
 
 export default function Dashboard() {
   const dispatch = useDispatch();
@@ -51,29 +51,24 @@ export default function Dashboard() {
       <Header />
 
       <main className="dashboard-grid">
-        {/* LEFT PANEL: Interactive Map */}
-        <div style={{ minHeight: 0 }}>
+        {/* QUADRANT 1: Spatial Vulnerability (Map) - Spans full width */}
+        <div style={{ gridColumn: '1 / -1', minHeight: 0, height: '100%' }}>
           <MapPanel />
         </div>
 
-        {/* CENTER PANEL: Station Y.1C Focus */}
-        <div style={{ minHeight: 0 }}>
+        {/* QUADRANT 2: Current Operations (Telemetry Focus) */}
+        <div style={{ minHeight: 0, height: '100%' }}>
           <StationFocus />
         </div>
 
-        {/* RIGHT PANEL: Upstream + AI Forecast */}
-        <div className="card" style={{ display: 'flex', flexDirection: 'column', height: '100%', overflow: 'hidden' }}>
-          <div className="card-header">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" strokeWidth="2">
-              <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
-              <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
-            </svg>
-            Upstream Network & AI Forecast
-          </div>
-          <div className="card-body" style={{ flex: 1, overflow: 'auto' }}>
-            <UpstreamStatus />
-            <ForecastTimeline />
-          </div>
+        {/* QUADRANT 3: Historical Data Repository */}
+        <div style={{ minHeight: 0, height: '100%' }}>
+          <HistoricalData />
+        </div>
+
+        {/* QUADRANT 4: Analytical Visualization */}
+        <div style={{ minHeight: 0, height: '100%' }}>
+          <AnalyticalVisualization />
         </div>
       </main>
     </div>

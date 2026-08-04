@@ -107,8 +107,9 @@ export default function Header() {
           <span
             style={{
               fontFamily: 'monospace',
-              fontSize: '0.8rem',
-              color: '#e2e8f0',
+              fontSize: '0.85rem',
+              fontWeight: 600,
+              color: '#475569',
               letterSpacing: '0.04em',
             }}
           >

@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/lib/store';
 import {
@@ -12,6 +12,7 @@ import {
   formatPercent,
   Y1C_CHANNEL_CAPACITY,
   ALERT_THRESHOLDS,
+  STATION_DEFINITIONS
 } from '@/lib/constants';
 import {
   AreaChart,
@@ -20,253 +21,262 @@ import {
   YAxis,
   Tooltip,
   ResponsiveContainer,
-  ReferenceLine,
   CartesianGrid,
 } from 'recharts';
+import { StationReading } from '@/lib/types';
+
+const DISTRICT_BASINS: Record<string, string[]> = {
+  'MuangPhrae': ['Y.1C', 'KM.1', 'Y.34', 'KS.1'],
+  'Song': ['Y.20'],
+  'NongMuangKai': ['KY.1'],
+  'RongKwang': ['Y.38', 'KM.1'],
+};
+
+// Helper to generate dynamic insights based on station status and history
+function generateInsights(station: StationReading): string[] {
+  const insights = [];
+  
+  if (station.status === 'safe') {
+    insights.push(`Current water levels at ${station.stationId} are stable and within normal operational limits.`);
+    insights.push(`Historical data suggests a low probability of sudden flooding in the next 24 hours under current weather conditions.`);
+  } else if (station.status === 'watch') {
+    insights.push(`Water levels are elevated. Based on past events, this often precedes minor agricultural flooding in low-lying areas.`);
+    insights.push(`Recommend monitoring upstream conditions closely. Discharge is currently ${station.trendDirection}.`);
+  } else if (station.status === 'warning') {
+    insights.push(`CRITICAL: Channel capacity is nearing limits (${formatPercent(station.capacityPercent)}%). Past events with this signature resulted in moderate urban flooding within 6-12 hours.`);
+    insights.push(`Action Required: Prepare local evacuation routes and deploy mobile pumps to identified chokepoints.`);
+  } else {
+    insights.push(`EMERGENCY: Station ${station.stationId} has exceeded safe capacity.`);
+    insights.push(`Immediate action required based on historical severities: initiate full evacuation of adjacent zones.`);
+  }
+
+  return insights;
+}
 
 export default function StationFocus() {
   const stations = useSelector((s: RootState) => s.dashboard.stations);
   const statusHistory = useSelector((s: RootState) => s.dashboard.statusHistory);
-  const y1c = stations['Y.1C'];
+  const selectedDistrict = useSelector((s: RootState) => s.dashboard.selectedDistrict);
 
-  if (!y1c) {
-    return (
-      <div className="card" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-        <div className="card-header">
-          <div className="status-dot safe" />
-          Station Y.1C — Ban Nam Khong
-        </div>
-        <div className="card-body" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flex: 1 }}>
-          <div style={{ color: '#64748b', fontSize: '0.85rem' }}>Loading station data...</div>
-        </div>
-      </div>
-    );
-  }
+  const [selectedBasin, setSelectedBasin] = useState<string | null>(null);
 
-  const statusColor = getStatusColor(y1c.status);
-  const statusLabel = getStatusLabel(y1c.status);
-  const statusAction = getStatusAction(y1c.status);
+  // Reset selected basin when district changes
+  useEffect(() => {
+    setSelectedBasin(null);
+  }, [selectedDistrict]);
 
-  const trendIcon = y1c.trendDirection === 'rising' ? '↑' :
-                     y1c.trendDirection === 'falling' ? '↓' : '→';
-  const trendColorClass = y1c.trendDirection === 'rising' ? 'trend-up' :
-                           y1c.trendDirection === 'falling' ? 'trend-down' : 'trend-stable';
-
-  // Format chart data
-  const chartData = y1c.history.map((d) => ({
-    time: new Date(d.time).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }),
-    discharge: d.value,
-    waterLevel: d.waterLevel,
-  }));
-
-  // Last status change
   const lastChange = statusHistory.length > 0 ? statusHistory[statusHistory.length - 1] : null;
 
-  return (
-    <div className="card" id="station-focus" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-      {/* Header */}
-      <div className="card-header" style={{ borderBottom: `2px solid ${statusColor}40` }}>
-        <div className={`status-dot ${y1c.status}`} />
-        <span>Station Y.1C — Ban Nam Khong</span>
-        <span style={{ marginLeft: 'auto', fontSize: '0.65rem', color: '#64748b' }}>
-          Primary Chokepoint
-        </span>
-      </div>
+  // Determine which stations to show in the list
+  let basinsToDisplay: string[] = [];
+  if (selectedDistrict && DISTRICT_BASINS[selectedDistrict]) {
+    basinsToDisplay = DISTRICT_BASINS[selectedDistrict];
+  } else {
+    basinsToDisplay = Object.keys(STATION_DEFINITIONS);
+  }
 
-      <div className="card-body" style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 12, overflow: 'auto' }}>
-        {/* Status Banner */}
-        <div
-          id="y1c-status-banner"
-          style={{
-            background: `linear-gradient(135deg, ${statusColor}15, ${statusColor}08)`,
-            border: `1px solid ${statusColor}40`,
-            borderRadius: 8,
-            padding: '10px 14px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          }}
-        >
-          <div>
-            <div style={{ fontSize: '0.7rem', color: statusColor, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-              {statusLabel}
+  const stationsToDisplay = basinsToDisplay.map(id => stations[id]).filter(Boolean);
+  const activeStation = selectedBasin ? stations[selectedBasin] : null;
+
+  const renderListView = () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+      <div style={{ fontSize: '0.8rem', color: '#64748b', marginBottom: '8px' }}>
+        Select a river basin to view real-time metrics and historical insights.
+      </div>
+      {stationsToDisplay.map(station => {
+        const color = getStatusColor(station.status);
+        return (
+          <div 
+            key={station.stationId}
+            onClick={() => setSelectedBasin(station.stationId)}
+            style={{
+              padding: '12px 16px',
+              border: '1px solid #e2e8f0',
+              borderRadius: '8px',
+              cursor: 'pointer',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              background: '#ffffff',
+              transition: 'all 0.2s ease',
+              boxShadow: '0 1px 2px rgba(0,0,0,0.05)',
+            }}
+            onMouseOver={(e) => (e.currentTarget.style.borderColor = '#cbd5e1')}
+            onMouseOut={(e) => (e.currentTarget.style.borderColor = '#e2e8f0')}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+              <div className={`status-dot ${station.status}`} />
+              <div>
+                <div style={{ fontWeight: 600, color: '#0f172a' }}>{station.stationId} — {station.name}</div>
+                <div style={{ fontSize: '0.7rem', color: '#64748b', textTransform: 'capitalize' }}>{station.type}</div>
+              </div>
             </div>
-            <div style={{ fontSize: '0.65rem', color: '#94a3b8', marginTop: 2 }}>
-              {statusAction}
+            <div style={{ textAlign: 'right' }}>
+              <div style={{ color: color, fontWeight: 700, fontSize: '0.85rem' }}>{getStatusLabel(station.status)}</div>
+              <div style={{ fontSize: '0.7rem', color: '#64748b' }}>{formatDischarge(station.discharge)} cms</div>
             </div>
           </div>
-          <div className={`badge badge-${y1c.status}`}>
-            {statusLabel}
+        );
+      })}
+    </div>
+  );
+
+  const renderDetailView = (station: StationReading) => {
+    const statusColor = getStatusColor(station.status);
+    const trendColorClass = station.trendDirection === 'rising' ? 'trend-up' :
+                            station.trendDirection === 'falling' ? 'trend-down' : 'trend-stable';
+    const trendIcon = station.trendDirection === 'rising' ? '↑' :
+                      station.trendDirection === 'falling' ? '↓' : '→';
+    const insights = generateInsights(station);
+
+    const chartData = station.history?.map((d) => ({
+      time: new Date(d.time).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }),
+      discharge: d.value,
+    })) || [];
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        {/* Detail Header */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <button 
+            onClick={() => setSelectedBasin(null)}
+            style={{ 
+              background: '#f1f5f9', border: 'none', borderRadius: '4px', padding: '4px 8px',
+              cursor: 'pointer', fontSize: '0.75rem', fontWeight: 600, color: '#475569'
+            }}
+          >
+            ← Back
+          </button>
+          <div style={{ fontSize: '1rem', fontWeight: 700, color: '#0f172a' }}>
+            {station.stationId} — {station.name}
           </div>
         </div>
 
-        {/* KPI Grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+        {/* Interpretative Module */}
+        <div style={{ 
+          background: `linear-gradient(145deg, #f8fafc, #f1f5f9)`, 
+          borderLeft: `4px solid ${statusColor}`,
+          padding: '12px 16px',
+          borderRadius: '4px 8px 8px 4px',
+          boxShadow: '0 2px 4px rgba(0,0,0,0.02)'
+        }}>
+          <div style={{ fontSize: '0.75rem', fontWeight: 700, color: '#475569', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+            Historical Insight & Analysis
+          </div>
+          <ul style={{ margin: 0, paddingLeft: '16px', fontSize: '0.8rem', color: '#1e293b', lineHeight: '1.5' }}>
+            {insights.map((text, i) => <li key={i} style={{ marginBottom: '4px' }}>{text}</li>)}
+          </ul>
+        </div>
+
+        {/* Live Metrics Grid */}
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
           {/* Discharge */}
-          <div className="kpi-chip" id="kpi-discharge">
-            <span className="kpi-label">Discharge</span>
+          <div className="kpi-chip">
+            <span className="kpi-label">River Discharge</span>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: 4 }}>
               <span className="kpi-value" style={{ color: statusColor, fontSize: '1.6rem' }}>
-                {formatDischarge(y1c.discharge)}
+                {formatDischarge(station.discharge)}
               </span>
               <span className="kpi-unit">cms</span>
             </div>
-            <span className={`${trendColorClass}`} style={{ fontSize: '0.7rem', fontWeight: 600 }}>
-              {trendIcon} Trend {y1c.trendDirection}
+            <span className={`${trendColorClass}`} style={{ fontSize: '0.75rem', fontWeight: 600 }}>
+              {trendIcon} Trend {station.trendDirection}
             </span>
           </div>
 
           {/* Water Level */}
-          <div className="kpi-chip" id="kpi-water-level">
-            <span className="kpi-label">Water Level</span>
+          <div className="kpi-chip">
+            <span className="kpi-label">Current Water Level</span>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: 4 }}>
               <span className="kpi-value" style={{ fontSize: '1.6rem' }}>
-                {formatWaterLevel(y1c.waterLevel)}
+                {formatWaterLevel(station.waterLevel)}
               </span>
               <span className="kpi-unit">m MSL</span>
             </div>
-            <span className={`${trendColorClass}`} style={{ fontSize: '0.7rem', fontWeight: 600 }}>
-              Δ {y1c.trend > 0 ? '+' : ''}{y1c.trend.toFixed(2)} m/3hr
+            <span className={`${trendColorClass}`} style={{ fontSize: '0.75rem', fontWeight: 600 }}>
+              Δ {station.trend > 0 ? '+' : ''}{station.trend.toFixed(2)} m/3hr
             </span>
-          </div>
-
-          {/* Channel Capacity */}
-          <div className="kpi-chip" id="kpi-capacity">
-            <span className="kpi-label">Channel Capacity</span>
-            <div style={{ display: 'flex', alignItems: 'baseline', gap: 4 }}>
-              <span className="kpi-value" style={{
-                color: y1c.capacityPercent > 100 ? '#ef4444' :
-                       y1c.capacityPercent > 80 ? '#f97316' : '#22c55e',
-                fontSize: '1.6rem',
-              }}>
-                {formatPercent(y1c.capacityPercent)}
-              </span>
-              <span className="kpi-unit">%</span>
-            </div>
-            <span style={{ fontSize: '0.65rem', color: '#64748b' }}>
-              of {Y1C_CHANNEL_CAPACITY} cms
-            </span>
-          </div>
-
-          {/* Operational Status */}
-          <div className="kpi-chip" id="kpi-operational">
-            <span className="kpi-label">Operational Status</span>
-            <div style={{ fontSize: '0.85rem', fontWeight: 700, color: statusColor, marginTop: 2 }}>
-              {y1c.capacityPercent > 100 ? 'OVER CAPACITY' :
-               y1c.capacityPercent > 80 ? 'NEAR CAPACITY' : 'NORMAL'}
-            </div>
-            {lastChange && (
-              <span style={{ fontSize: '0.6rem', color: '#64748b', marginTop: 2 }}>
-                Last change: {new Date(lastChange.timestamp).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}
-              </span>
-            )}
           </div>
         </div>
 
         {/* Capacity Progress Bar */}
-        <div style={{ padding: '0 2px' }}>
-          <div style={{
-            height: 6,
-            borderRadius: 3,
-            background: '#1e293b',
-            overflow: 'hidden',
-            position: 'relative',
-          }}>
+        <div style={{ padding: '12px', border: '1px solid #e2e8f0', borderRadius: '8px', background: '#ffffff' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
+            <span className="kpi-label" style={{ margin: 0 }}>Channel Capacity</span>
+            <span style={{ fontSize: '0.85rem', fontWeight: 700, color: statusColor }}>{formatPercent(station.capacityPercent)}%</span>
+          </div>
+          <div style={{ height: 10, borderRadius: 5, background: '#e2e8f0', overflow: 'hidden', position: 'relative' }}>
             <div style={{
               height: '100%',
-              width: `${Math.min(y1c.capacityPercent, 100)}%`,
-              borderRadius: 3,
-              background: `linear-gradient(90deg, ${getStatusColor('safe')}, ${statusColor})`,
-              transition: 'width 0.5s ease',
+              width: `${Math.min(station.capacityPercent, 100)}%`,
+              background: `linear-gradient(90deg, #22c55e, ${statusColor})`,
+              transition: 'width 0.5s ease'
             }} />
-            {/* Threshold markers */}
-            <div style={{ position: 'absolute', left: '80%', top: 0, bottom: 0, width: 1, background: '#eab30880' }} />
-            <div style={{ position: 'absolute', left: '100%', top: 0, bottom: 0, width: 1, background: '#f9731680' }} />
+            {/* Markers */}
+            <div style={{ position: 'absolute', left: '80%', top: 0, bottom: 0, width: 2, background: '#eab308' }} />
+            <div style={{ position: 'absolute', left: '100%', top: 0, bottom: 0, width: 2, background: '#ef4444' }} />
           </div>
-          <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.55rem', color: '#64748b', marginTop: 3 }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.65rem', color: '#64748b', marginTop: 6 }}>
             <span>0</span>
-            <span style={{ color: '#eab308' }}>834 (Watch)</span>
-            <span style={{ color: '#f97316' }}>1042 (Warn)</span>
-            <span style={{ color: '#ef4444' }}>1250 (Emer)</span>
+            <span style={{ color: '#eab308' }}>Watch (80%)</span>
+            <span style={{ color: '#ef4444' }}>Critical (100%)</span>
           </div>
         </div>
 
-        {/* 24-hour Discharge Chart */}
-        <div style={{ flex: 1, minHeight: 140 }}>
-          <div style={{ fontSize: '0.7rem', color: '#94a3b8', fontWeight: 600, marginBottom: 6 }}>
-            24-Hour Discharge Trend
+        {/* Chart */}
+        {station.type !== 'sensor' && (
+          <div style={{ height: 140, marginTop: '8px' }}>
+            <div style={{ fontSize: '0.7rem', color: '#94a3b8', fontWeight: 600, marginBottom: 8 }}>24-Hour Discharge Trend</div>
+            <ResponsiveContainer width="100%" height="100%">
+              <AreaChart data={chartData} margin={{ top: 0, right: 0, bottom: 0, left: 0 }}>
+                <defs>
+                  <linearGradient id={`gradient-${station.stationId}`} x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor={statusColor} stopOpacity={0.3} />
+                    <stop offset="95%" stopColor={statusColor} stopOpacity={0.02} />
+                  </linearGradient>
+                </defs>
+                <YAxis domain={['auto', 'auto']} hide />
+                <Area
+                  type="monotone"
+                  dataKey="discharge"
+                  stroke={statusColor}
+                  fill={`url(#gradient-${station.stationId})`}
+                  strokeWidth={2}
+                  dot={false}
+                  animationDuration={500}
+                />
+              </AreaChart>
+            </ResponsiveContainer>
           </div>
-          <ResponsiveContainer width="100%" height="85%">
-            <AreaChart data={chartData} margin={{ top: 4, right: 4, bottom: 4, left: 4 }}>
-              <defs>
-                <linearGradient id="dischargeGradient" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor={statusColor} stopOpacity={0.3} />
-                  <stop offset="95%" stopColor={statusColor} stopOpacity={0.02} />
-                </linearGradient>
-              </defs>
-              <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
-              <XAxis
-                dataKey="time"
-                tick={{ fontSize: 9, fill: '#64748b' }}
-                axisLine={{ stroke: '#2a3a4e' }}
-                tickLine={false}
-                interval={Math.floor(chartData.length / 6)}
-              />
-              <YAxis
-                tick={{ fontSize: 9, fill: '#64748b' }}
-                axisLine={{ stroke: '#2a3a4e' }}
-                tickLine={false}
-                domain={['auto', 'auto']}
-              />
-              <Tooltip
-                contentStyle={{
-                  background: '#1a2332',
-                  border: '1px solid #2a3a4e',
-                  borderRadius: 8,
-                  fontSize: '0.75rem',
-                  color: '#e2e8f0',
-                }}
-              />
-              {/* Threshold reference lines */}
-              <ReferenceLine y={ALERT_THRESHOLDS.safe.max} stroke="#eab30860" strokeDasharray="4 4" />
-              <ReferenceLine y={ALERT_THRESHOLDS.watch.max} stroke="#f9731660" strokeDasharray="4 4" />
-              <ReferenceLine y={ALERT_THRESHOLDS.warning.max} stroke="#ef444460" strokeDasharray="4 4" />
-              <Area
-                type="monotone"
-                dataKey="discharge"
-                stroke={statusColor}
-                fill="url(#dischargeGradient)"
-                strokeWidth={2}
-                dot={false}
-                animationDuration={500}
-              />
-            </AreaChart>
-          </ResponsiveContainer>
-        </div>
+        )}
+      </div>
+    );
+  };
 
-        {/* Data Sources */}
-        <div style={{
-          display: 'flex',
-          gap: 12,
-          fontSize: '0.6rem',
-          color: '#64748b',
-          borderTop: '1px solid #2a3a4e',
-          paddingTop: 8,
-          flexWrap: 'wrap',
-        }}>
-          <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-            <div style={{ width: 6, height: 6, borderRadius: 2, background: '#8b5cf6' }} />
-            RID APIs
-          </span>
-          <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-            <div style={{ width: 6, height: 6, borderRadius: 2, background: '#3b82f6' }} />
-            HII APIs
-          </span>
-          <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-            <div style={{ width: 6, height: 6, borderRadius: 2, background: '#06b6d4' }} />
-            RIKA/Haiwell Cloud
-          </span>
-        </div>
+  return (
+    <div className="card" id="station-focus" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+      {/* Header */}
+      <div className="card-header">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ marginRight: 6, display: 'inline-block', verticalAlign: 'middle' }}>
+          <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+        </svg>
+        <span style={{ verticalAlign: 'middle' }}>
+          {selectedBasin 
+            ? `Real-time Telemetry & Insights` 
+            : (selectedDistrict ? `${selectedDistrict} District — River Basins` : 'All Basins Overview')}
+        </span>
+      </div>
+
+      <div className="card-body" style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 12, overflow: 'auto', padding: '16px' }}>
+        {stationsToDisplay.length === 0 ? (
+          <div style={{ color: '#64748b', fontSize: '0.85rem', textAlign: 'center', marginTop: 20 }}>
+            No station data available.
+          </div>
+        ) : (
+          selectedBasin && activeStation 
+            ? renderDetailView(activeStation) 
+            : renderListView()
+        )}
       </div>
     </div>
   );
