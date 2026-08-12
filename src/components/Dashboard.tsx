@@ -9,10 +9,12 @@ import Header from './Header';
 import MapPanel from './MapPanel';
 import StationFocus from './StationFocus';
 import HistoricalData from './HistoricalData';
-import AnalyticalVisualization from './AnalyticalVisualization';
+import CausalPredictorPanel from './CausalPredictorPanel';
+import { fetchGFSDataAsync } from '@/lib/gfsForecastSlice';
+import { AppDispatch } from '@/lib/store';
 
 export default function Dashboard() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const isFirstLoad = useRef(true);
 
@@ -22,6 +24,7 @@ export default function Dashboard() {
       const { stations, forecasts } = await fetchAllStationData();
       dispatch(updateStations(stations));
       dispatch(updateForecasts(forecasts));
+      dispatch(fetchGFSDataAsync());
       dispatch(setConnectionStatus(true));
     } catch (error) {
       console.error('[Dashboard] Data poll failed:', error);
@@ -66,9 +69,9 @@ export default function Dashboard() {
           <HistoricalData />
         </div>
 
-        {/* QUADRANT 4: Analytical Visualization */}
+        {/* QUADRANT 4: Causal Predictor */}
         <div style={{ minHeight: 0, height: '100%' }}>
-          <AnalyticalVisualization />
+          <CausalPredictorPanel />
         </div>
       </main>
     </div>

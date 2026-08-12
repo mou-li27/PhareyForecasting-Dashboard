@@ -79,4 +79,5 @@ export interface DashboardState {
   isConnected: boolean;
   error: string | null;
   selectedDistrict: string | null;
+  selectedBasin: string | null;
 }

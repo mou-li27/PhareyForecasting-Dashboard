@@ -7,6 +7,7 @@ import {
   AlertStatus,
 } from './types';
 import { getAlertStatus, STALE_THRESHOLD_MS } from './constants';
+import gfsForecastReducer from './gfsForecastSlice';
 
 // ===== INITIAL STATE =====
 const initialState: DashboardState = {
@@ -19,6 +20,7 @@ const initialState: DashboardState = {
   isConnected: true,
   error: null,
   selectedDistrict: null,
+  selectedBasin: null,
 };
 
 // ===== DASHBOARD SLICE =====
@@ -89,6 +91,11 @@ const dashboardSlice = createSlice({
     
     setSelectedDistrict(state, action: PayloadAction<string | null>) {
       state.selectedDistrict = action.payload;
+      state.selectedBasin = null; // Reset basin on district change
+    },
+    
+    setSelectedBasin(state, action: PayloadAction<string | null>) {
+      state.selectedBasin = action.payload;
     },
   },
 });
@@ -100,12 +107,14 @@ export const {
   setConnectionStatus,
   setError,
   setSelectedDistrict,
+  setSelectedBasin,
 } = dashboardSlice.actions;
 
 // ===== STORE =====
 export const store = configureStore({
   reducer: {
     dashboard: dashboardSlice.reducer,
+    gfsForecast: gfsForecastReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

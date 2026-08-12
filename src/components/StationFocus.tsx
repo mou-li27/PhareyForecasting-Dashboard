@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/lib/store';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState, setSelectedBasin } from '@/lib/store';
 import {
   getStatusColor,
   getStatusLabel,
@@ -57,13 +57,8 @@ export default function StationFocus() {
   const stations = useSelector((s: RootState) => s.dashboard.stations);
   const statusHistory = useSelector((s: RootState) => s.dashboard.statusHistory);
   const selectedDistrict = useSelector((s: RootState) => s.dashboard.selectedDistrict);
-
-  const [selectedBasin, setSelectedBasin] = useState<string | null>(null);
-
-  // Reset selected basin when district changes
-  useEffect(() => {
-    setSelectedBasin(null);
-  }, [selectedDistrict]);
+  const selectedBasin = useSelector((s: RootState) => s.dashboard.selectedBasin);
+  const dispatch = useDispatch();
 
   const lastChange = statusHistory.length > 0 ? statusHistory[statusHistory.length - 1] : null;
 
@@ -88,7 +83,7 @@ export default function StationFocus() {
         return (
           <div 
             key={station.stationId}
-            onClick={() => setSelectedBasin(station.stationId)}
+            onClick={() => dispatch(setSelectedBasin(station.stationId))}
             style={{
               padding: '12px 16px',
               border: '1px solid #e2e8f0',
@@ -139,7 +134,7 @@ export default function StationFocus() {
         {/* Detail Header */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
           <button 
-            onClick={() => setSelectedBasin(null)}
+            onClick={() => dispatch(setSelectedBasin(null))}
             style={{ 
               background: '#f1f5f9', border: 'none', borderRadius: '4px', padding: '4px 8px',
               cursor: 'pointer', fontSize: '0.75rem', fontWeight: 600, color: '#475569'
