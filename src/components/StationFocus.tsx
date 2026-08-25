@@ -26,28 +26,44 @@ import {
 import { StationReading } from '@/lib/types';
 
 const DISTRICT_BASINS: Record<string, string[]> = {
-  'MuangPhrae': ['Y.1C', 'KM.1', 'Y.34', 'KS.1'],
-  'Song': ['Y.20'],
-  'NongMuangKai': ['KY.1'],
-  'RongKwang': ['Y.38', 'KM.1'],
+  'MuangPhrae': ['Y.34', 'KY.2', 'Y.1C'],
+  'Song': ['KY.1', 'Y.20'],
+  'NongMuangKai': ['Y.38'],
+  'WangChin': ['KY.3'],
 };
 
-// Helper to generate dynamic insights based on station status and history
+// Helper to generate dynamic insights based on station status, trend, and rainfall
 function generateInsights(station: StationReading): string[] {
-  const insights = [];
-  
+  const insights: string[] = [];
+  const rain = station.rainfall ?? 0;
+  const trend = station.trendDirection;
+  const cap = station.capacityPercent;
+
   if (station.status === 'safe') {
-    insights.push(`Current water levels at ${station.stationId} are stable and within normal operational limits.`);
-    insights.push(`Historical data suggests a low probability of sudden flooding in the next 24 hours under current weather conditions.`);
+    if (rain < 5 && trend !== 'rising') {
+      insights.push(`Conditions are dry — GFS reports negligible rainfall. River is in natural recession; discharge expected to continue falling or stabilise over the next 6 hours.`);
+      insights.push(`No flood risk indicators present. Routine monitoring is sufficient.`);
+    } else if (rain < 20) {
+      insights.push(`Light rainfall (≈${rain.toFixed(1)} mm/6hr) is contributing to stable baseflow at ${station.stationId}.`);
+      insights.push(`Channel utilisation is low (${formatPercent(cap)}%). No immediate action required.`);
+    } else {
+      insights.push(`Moderate rainfall (≈${rain.toFixed(1)} mm/6hr) is sustaining current flow. Discharge is ${trend} but remains within safe operational limits.`);
+      insights.push(`Monitor upstream tributaries. Alert thresholds not yet approached.`);
+    }
   } else if (station.status === 'watch') {
-    insights.push(`Water levels are elevated. Based on past events, this often precedes minor agricultural flooding in low-lying areas.`);
-    insights.push(`Recommend monitoring upstream conditions closely. Discharge is currently ${station.trendDirection}.`);
+    if (rain < 10) {
+      insights.push(`Discharge is elevated (${formatPercent(cap)}% capacity) from a prior rain event — GFS now shows minimal rainfall, so a natural recession is expected over the next 6 hours.`);
+      insights.push(`Continue monitoring; no immediate escalation expected unless upstream conditions change.`);
+    } else {
+      insights.push(`Water levels are elevated and GFS reports ≈${rain.toFixed(1)} mm/6hr ongoing rainfall upstream. Based on past events, this often precedes minor agricultural flooding in low-lying areas.`);
+      insights.push(`Recommend pre-positioning emergency response teams. Discharge is currently ${trend}.`);
+    }
   } else if (station.status === 'warning') {
-    insights.push(`CRITICAL: Channel capacity is nearing limits (${formatPercent(station.capacityPercent)}%). Past events with this signature resulted in moderate urban flooding within 6-12 hours.`);
+    insights.push(`ALERT: Channel capacity at ${formatPercent(cap)}% with GFS rainfall of ≈${rain.toFixed(1)} mm/6hr. Historical events with this signature have resulted in moderate urban flooding within 6–12 hours.`);
     insights.push(`Action Required: Prepare local evacuation routes and deploy mobile pumps to identified chokepoints.`);
   } else {
-    insights.push(`EMERGENCY: Station ${station.stationId} has exceeded safe capacity.`);
-    insights.push(`Immediate action required based on historical severities: initiate full evacuation of adjacent zones.`);
+    insights.push(`EMERGENCY: ${station.stationId} has exceeded safe capacity (${formatPercent(cap)}%). GFS confirms ≈${rain.toFixed(1)} mm/6hr ongoing precipitation.`);
+    insights.push(`Immediate action required: initiate full evacuation of adjacent zones and activate emergency flood response protocols.`);
   }
 
   return insights;

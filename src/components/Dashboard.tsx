@@ -10,6 +10,7 @@ import MapPanel from './MapPanel';
 import StationFocus from './StationFocus';
 import HistoricalData from './HistoricalData';
 import CausalPredictorPanel from './CausalPredictorPanel';
+import GfsForecastPanel from './GfsForecastPanel';
 import { fetchGFSDataAsync } from '@/lib/gfsForecastSlice';
 import { AppDispatch } from '@/lib/store';
 
@@ -53,27 +54,43 @@ export default function Dashboard() {
     <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
       <Header />
 
-      <main className="dashboard-grid">
-        {/* QUADRANT 1: Spatial Vulnerability (Map) - Spans full width */}
-        <div style={{ gridColumn: '1 / -1', minHeight: 0, height: '100%' }}>
+      <main style={{
+        flex: 1,
+        minHeight: 0,
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '20px',
+        padding: '20px',
+        overflowY: 'auto',
+        boxSizing: 'border-box',
+      }}>
+        {/* TOP SECTION: Map (fixed height) + Historical side-by-side */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: '1.5fr 1fr',
+          gap: '20px',
+          height: '48vh',
+          minHeight: '360px',
+          flexShrink: 0,
+        }}>
           <MapPanel />
-        </div>
-
-        {/* QUADRANT 2: Current Operations (Telemetry Focus) */}
-        <div style={{ minHeight: 0, height: '100%' }}>
-          <StationFocus />
-        </div>
-
-        {/* QUADRANT 3: Historical Data Repository */}
-        <div style={{ minHeight: 0, height: '100%' }}>
           <HistoricalData />
         </div>
 
-        {/* QUADRANT 4: Causal Predictor */}
-        <div style={{ minHeight: 0, height: '100%' }}>
+        {/* BOTTOM SECTION: 3-Column Data & Forecasting Grid */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr 1fr',
+          gap: '20px',
+          minHeight: '360px',
+          flexShrink: 0,
+        }}>
+          <StationFocus />
+          <GfsForecastPanel />
           <CausalPredictorPanel />
         </div>
       </main>
     </div>
+
   );
 }

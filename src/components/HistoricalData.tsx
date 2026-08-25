@@ -6,17 +6,17 @@ import { RootState } from '@/lib/store';
 import { STATION_DEFINITIONS } from '@/lib/constants';
 
 const DISTRICT_BASINS: Record<string, string[]> = {
-  'MuangPhrae': ['Y.1C', 'KM.1', 'Y.34', 'KS.1'],
-  'Song': ['Y.20'],
-  'NongMuangKai': ['KY.1'],
-  'RongKwang': ['Y.38', 'KM.1'],
+  'MuangPhrae': ['Y.34', 'KY.2', 'Y.1C'],
+  'Song': ['KY.1', 'Y.20'],
+  'NongMuangKai': ['Y.38'],
+  'WangChin': ['KY.3'],
 };
 
 const ALL_HISTORICAL_EVENTS = [
   { date: 'Aug 2024', loc: 'Y.1C', sev: 'Critical', q: '1240', color: '#ef4444', severityValue: 100 },
-  { date: 'Sep 2023', loc: 'KM.1', sev: 'Warning', q: '380', color: '#f97316', severityValue: 80 },
+  { date: 'Sep 2023', loc: 'KY.2', sev: 'Warning', q: '1080', color: '#f97316', severityValue: 80 },
   { date: 'Sep 2022', loc: 'Y.20', sev: 'Warning', q: '1250', color: '#f97316', severityValue: 90 },
-  { date: 'Aug 2021', loc: 'KS.1', sev: 'Watch', q: 'N/A', color: '#eab308', severityValue: 50 },
+  { date: 'Aug 2021', loc: 'KY.3', sev: 'Watch', q: '1600', color: '#eab308', severityValue: 50 },
   { date: 'Aug 2020', loc: 'Y.1C', sev: 'Warning', q: '1010', color: '#f97316', severityValue: 85 },
   { date: 'Oct 2019', loc: 'Y.34', sev: 'Watch', q: '250', color: '#eab308', severityValue: 60 },
   { date: 'Sep 2018', loc: 'KY.1', sev: 'Warning', q: '1100', color: '#f97316', severityValue: 95 },
@@ -26,20 +26,26 @@ const ALL_HISTORICAL_EVENTS = [
 
 export default function HistoricalData() {
   const selectedDistrict = useSelector((s: RootState) => s.dashboard.selectedDistrict);
+  const selectedBasin = useSelector((s: RootState) => s.dashboard.selectedBasin);
 
-  // Filter events based on selected district
+  // Filter events based on selected basin or district
   const filteredEvents = useMemo(() => {
+    if (selectedBasin) {
+      return ALL_HISTORICAL_EVENTS.filter(e => e.loc === selectedBasin);
+    }
     if (!selectedDistrict || !DISTRICT_BASINS[selectedDistrict]) {
       return ALL_HISTORICAL_EVENTS;
     }
     const targetBasins = DISTRICT_BASINS[selectedDistrict];
     return ALL_HISTORICAL_EVENTS.filter(e => targetBasins.includes(e.loc));
-  }, [selectedDistrict]);
+  }, [selectedDistrict, selectedBasin]);
 
-  // Chart heights (normalize to some bars for the placeholder)
   const chartBars = filteredEvents.slice(0, 10).map(e => ({
     height: e.severityValue,
-    color: e.color
+    color: e.color,
+    loc: e.loc,
+    date: e.date,
+    q: e.q
   }));
 
   return (
@@ -59,21 +65,27 @@ export default function HistoricalData() {
         {/* Time-Series Graph Placeholder */}
         <div style={{ padding: '16px', background: '#f1f5f9', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
           <div style={{ fontSize: '0.75rem', fontWeight: 600, color: '#475569', marginBottom: '8px', textTransform: 'uppercase' }}>
-            {selectedDistrict ? `${selectedDistrict} Flood Frequency` : 'All Basins Flood Frequency'}
+            {selectedBasin ? `${selectedBasin} Flood Frequency` : (selectedDistrict ? `${selectedDistrict} Flood Frequency` : 'All Basins Flood Frequency')}
           </div>
-          <div style={{ height: '100px', display: 'flex', alignItems: 'flex-end', gap: '4px' }}>
+          <div style={{ height: '120px', display: 'flex', alignItems: 'flex-end', gap: '8px' }}>
             {chartBars.length > 0 ? chartBars.map((bar, i) => (
-              <div 
-                key={i} 
-                style={{ 
-                  flex: 1, 
-                  height: `${bar.height}%`, 
-                  background: bar.color, 
-                  opacity: 0.8,
-                  borderRadius: '2px 2px 0 0',
-                  transition: 'height 0.5s ease'
-                }} 
-              />
+              <div key={i} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100%', justifyContent: 'flex-end' }}>
+                <div 
+                  style={{ 
+                    width: '100%',
+                    height: `${bar.height}%`, 
+                    background: bar.color, 
+                    opacity: 0.8,
+                    borderRadius: '2px 2px 0 0',
+                    transition: 'height 0.5s ease',
+                    minHeight: '4px'
+                  }} 
+                  title={`${bar.loc} - ${bar.date} (${bar.q} cms)`}
+                />
+                <div style={{ fontSize: '0.65rem', color: '#64748b', marginTop: '4px', fontWeight: 600 }}>
+                  {bar.loc}
+                </div>
+              </div>
             )) : (
               <div style={{ width: '100%', textAlign: 'center', color: '#94a3b8', fontSize: '0.8rem', paddingBottom: '20px' }}>
                 No historical events recorded for this district.
@@ -85,7 +97,7 @@ export default function HistoricalData() {
         {/* Tabular Logs */}
         <div style={{ flex: 1 }}>
           <div style={{ fontSize: '0.75rem', fontWeight: 600, color: '#475569', marginBottom: '8px', textTransform: 'uppercase' }}>
-            Severe Event Logs {selectedDistrict ? `(${selectedDistrict})` : ''}
+            Severe Event Logs {selectedBasin ? `(${selectedBasin})` : (selectedDistrict ? `(${selectedDistrict})` : '')}
           </div>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.75rem' }}>
             <thead>

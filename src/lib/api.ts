@@ -1,5 +1,6 @@
 import { StationReading, ForecastHorizon } from './types';
-import { generateMockData } from './mockData';
+import { generateMockData, setLatestGFS } from './mockData';
+import { fetchGFSForecast } from '@/services/gfsService';
 
 // ===== API CONFIGURATION =====
 const API_CONFIG = {
@@ -119,7 +120,13 @@ export async function fetchAllStationData(): Promise<{
     return { stations: liveData, forecasts: mockForecasts, source: 'live' };
   }
 
-  // Fallback to mock data
+  // Fallback to mock data — but first sync GFS so telemetry matches forecast
+  try {
+    const gfs = await fetchGFSForecast();
+    setLatestGFS(gfs);
+  } catch (_) {
+    // GFS unavailable — mock data will use last known or defaults
+  }
   const mockData = generateMockData();
   cachedStations = mockData.stations;
   cachedForecasts = mockData.forecasts;
