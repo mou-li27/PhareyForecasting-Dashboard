@@ -209,14 +209,6 @@ npm start
 npx jest
 ```
 
----
-
-## 🤝 Collaborators
-
-| GitHub | Role |
-|---|---|
-| [@mou-li27](https://github.com/mou-li27) | Project Lead |
-| [@AdiRatnam](https://github.com/AdiRatnam) | Collaborator |
 
 ---
 
