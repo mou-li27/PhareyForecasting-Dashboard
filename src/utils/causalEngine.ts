@@ -148,8 +148,8 @@ export function calculateCausalPrediction(
   const row = catalog[level];
 
   // Build station-appropriate upstream status label
-  let upstreamStatusText = row.y20;
-  let upstreamTrendText = row.ky1;
+  let upstreamStatusText: string = row.y20;
+  let upstreamTrendText: string = row.ky1;
 
   if (targetBasinId === 'KY.1') {
     // KY.1 is headwater — upstream is GFS rainfall, no river station above it
@@ -158,8 +158,8 @@ export function calculateCausalPrediction(
   } else if (targetBasinId === 'Y.20') {
     upstreamStatusText = 'N/A (Headwater)';
     // KY.1 is direct upstream for Y.20
-    const ky1Status = stations['KY.1']?.status || 'safe';
-    upstreamTrendText = ky1Status === 'rising' ? 'Rising' : row.ky1;
+    const ky1TrendDir = stations['KY.1']?.trendDirection || 'stable';
+    upstreamTrendText = ky1TrendDir === 'rising' ? 'Rising' : row.ky1;
   } else if (targetBasinId === 'Y.38' || targetBasinId === 'Y.34') {
     upstreamStatusText = gfsRain > 30 ? `Heavy Local Rain (${gfsRain.toFixed(1)}mm)` : `Local Rain (${gfsRain.toFixed(1)}mm)`;
     upstreamTrendText = row.ky1;
