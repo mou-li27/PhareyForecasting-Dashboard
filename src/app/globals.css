@@ -16,6 +16,8 @@
   --color-watch-bg: rgba(234, 179, 8, 0.12);
   --color-warning: #f97316;
   --color-warning-bg: rgba(249, 115, 22, 0.12);
+  --color-severe-warning: #ea580c;
+  --color-severe-warning-bg: rgba(234, 88, 12, 0.12);
   --color-emergency: #ef4444;
   --color-emergency-bg: rgba(239, 68, 68, 0.12);
   --color-accent-blue: #3b82f6;
@@ -72,6 +74,11 @@ html, body {
 @keyframes pulse-warning {
   0%, 100% { box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.4); }
   50% { box-shadow: 0 0 16px 6px rgba(249, 115, 22, 0.25); }
+}
+
+@keyframes pulse-severe-warning {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(234, 88, 12, 0.45); }
+  50% { box-shadow: 0 0 18px 7px rgba(234, 88, 12, 0.28); }
 }
 
 @keyframes pulse-emergency {
@@ -185,6 +192,11 @@ html, body {
   animation: pulse-warning 1.2s ease-in-out infinite;
 }
 
+.status-dot.severe-warning {
+  background: var(--color-severe-warning);
+  animation: pulse-severe-warning 1.0s ease-in-out infinite;
+}
+
 .status-dot.emergency {
   background: var(--color-emergency);
   animation: pulse-emergency 0.8s ease-in-out infinite;
@@ -220,6 +232,13 @@ html, body {
   color: var(--color-warning);
   border: 1px solid rgba(249, 115, 22, 0.3);
   animation: blink-alert 2s ease-in-out infinite;
+}
+
+.badge-severe-warning {
+  background: var(--color-severe-warning-bg);
+  color: var(--color-severe-warning);
+  border: 1px solid rgba(234, 88, 12, 0.3);
+  animation: blink-alert 1.5s ease-in-out infinite;
 }
 
 .badge-emergency {
@@ -363,6 +382,7 @@ html, body {
 .forecast-card.safe::before { background: var(--color-safe); }
 .forecast-card.watch::before { background: var(--color-watch); }
 .forecast-card.warning::before { background: var(--color-warning); }
+.forecast-card.severe-warning::before { background: var(--color-severe-warning); }
 .forecast-card.emergency::before { background: var(--color-emergency); }
 
 .forecast-card:hover {
@@ -380,8 +400,11 @@ html, body {
 }
 
 /* ===== LEAFLET CUSTOM OVERRIDES ===== */
+.dark-tile-layer {
+  filter: invert(100%) hue-rotate(180deg) brightness(85%) contrast(90%) grayscale(25%);
+}
 .leaflet-container {
-  background: var(--color-bg-primary) !important;
+  background: transparent !important;
   font-family: 'Inter', sans-serif !important;
 }
 
@@ -478,4 +501,35 @@ html, body {
   font-size: 0.65rem;
   color: var(--color-text-muted);
   font-style: italic;
+}
+
+/* ===== LEAFLET NATIVE TOOLTIPS ===== */
+.custom-tooltip {
+  background: rgba(15,23,42,0.92) !important;
+  color: #f8fafc !important;
+  border: none !important;
+  border-radius: 6px !important;
+  padding: 6px 10px !important;
+  font-size: 0.72rem !important;
+  font-weight: 500 !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25) !important;
+}
+
+.custom-tooltip .leaflet-tooltip-left::before { border-left-color: rgba(15,23,42,0.92) !important; }
+.custom-tooltip .leaflet-tooltip-right::before { border-right-color: rgba(15,23,42,0.92) !important; }
+.custom-tooltip .leaflet-tooltip-top::before { border-top-color: rgba(15,23,42,0.92) !important; }
+.custom-tooltip .leaflet-tooltip-bottom::before { border-bottom-color: rgba(15,23,42,0.92) !important; }
+
+.station-label-tooltip {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  font-weight: 800 !important;
+  font-size: 0.75rem !important;
+  color: #0f172a !important;
+  text-shadow: -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff, 2px 2px 0 #fff !important;
+}
+
+.station-label-tooltip::before {
+  display: none !important;
 }

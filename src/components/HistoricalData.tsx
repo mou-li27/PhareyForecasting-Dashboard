@@ -13,15 +13,15 @@ const DISTRICT_BASINS: Record<string, string[]> = {
 };
 
 const ALL_HISTORICAL_EVENTS = [
-  { date: 'Aug 2024', loc: 'Y.1C', sev: 'Critical', q: '1240', color: '#ef4444', severityValue: 100 },
-  { date: 'Sep 2023', loc: 'KY.2', sev: 'Warning', q: '1080', color: '#f97316', severityValue: 80 },
-  { date: 'Sep 2022', loc: 'Y.20', sev: 'Warning', q: '1250', color: '#f97316', severityValue: 90 },
-  { date: 'Aug 2021', loc: 'KY.3', sev: 'Watch', q: '1600', color: '#eab308', severityValue: 50 },
-  { date: 'Aug 2020', loc: 'Y.1C', sev: 'Warning', q: '1010', color: '#f97316', severityValue: 85 },
-  { date: 'Oct 2019', loc: 'Y.34', sev: 'Watch', q: '250', color: '#eab308', severityValue: 60 },
-  { date: 'Sep 2018', loc: 'KY.1', sev: 'Warning', q: '1100', color: '#f97316', severityValue: 95 },
-  { date: 'Oct 2017', loc: 'Y.38', sev: 'Watch', q: '320', color: '#eab308', severityValue: 75 },
-  { date: 'Sep 2011', loc: 'Y.1C', sev: 'Critical', q: '1450', color: '#ef4444', severityValue: 100 },
+  { date: 'Aug 2024', loc: 'Y.1C',  sev: 'Critical', q: '1240', color: '#ef4444', severityValue: 100 },
+  { date: 'Sep 2023', loc: 'KY.2',  sev: 'Warning',  q: '1080', color: '#f97316', severityValue: 80 },
+  { date: 'Sep 2022', loc: 'Y.20',  sev: 'Warning',  q: '1250', color: '#f97316', severityValue: 90 },
+  { date: 'Aug 2021', loc: 'KY.3',  sev: 'Watch',    q: '1600', color: '#f97316', severityValue: 50 },
+  { date: 'Aug 2020', loc: 'Y.1C',  sev: 'Warning',  q: '1010', color: '#f97316', severityValue: 85 },
+  { date: 'Oct 2019', loc: 'Y.34',  sev: 'Watch',    q: '250',  color: '#f97316', severityValue: 60 },
+  { date: 'Sep 2018', loc: 'KY.1',  sev: 'Warning',  q: '1100', color: '#f97316', severityValue: 95 },
+  { date: 'Oct 2017', loc: 'Y.38',  sev: 'Watch',    q: '320',  color: '#f97316', severityValue: 75 },
+  { date: 'Sep 2011', loc: 'Y.1C',  sev: 'Critical', q: '1450', color: '#ef4444', severityValue: 100 },
 ];
 
 export default function HistoricalData() {

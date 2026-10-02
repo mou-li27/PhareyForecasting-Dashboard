@@ -1,5 +1,5 @@
 import { StationReading, ForecastHorizon, DataPoint, AlertStatus } from './types';
-import { STATION_DEFINITIONS, getAlertStatus, Y1C_CHANNEL_CAPACITY } from './constants';
+import { STATION_DEFINITIONS, getAlertStatus, getStationStatus, Y1C_CHANNEL_CAPACITY } from './constants';
 import { GFSForecastData } from '@/services/gfsService';
 
 // ===== GFS-AWARE MOCK DATA GENERATOR =====
@@ -33,12 +33,12 @@ function clamp(value: number, min: number, max: number): number {
  * 120mm → 1.45  (Emergency / flood scenario)
  */
 function rainToFlowFactor(rainMm: number): number {
-  if (rainMm <= 0)   return jitter(0.55, 0.04);
-  if (rainMm <= 10)  return jitter(0.72, 0.04);
-  if (rainMm <= 25)  return jitter(0.88, 0.05);
-  if (rainMm <= 50)  return jitter(1.05, 0.06);
-  if (rainMm <= 80)  return jitter(1.25, 0.07);
-  return jitter(1.45, 0.08);
+  if (rainMm <= 0)   return jitter(0.95, 0.02); // Receding slightly, but still near base
+  if (rainMm <= 5)   return jitter(1.00, 0.02); // Stable baseflow
+  if (rainMm <= 20)  return jitter(1.10, 0.03); // Elevated
+  if (rainMm <= 50)  return jitter(1.30, 0.04); // High flow
+  if (rainMm <= 80)  return jitter(1.50, 0.05); // Flood stage
+  return jitter(1.80, 0.08); // Emergency
 }
 
 /**
@@ -63,13 +63,21 @@ function rainToTrend(rainMm: number): { trend: number; direction: 'rising' | 'fa
   return { trend: t, direction: 'rising' };
 }
 
-// Approximate water level from discharge (simplified Manning stage-discharge)
-function valueToWaterLevel(discharge: number): number {
+// Approximate water level from discharge (simplified Manning stage-discharge or linear map)
+function valueToWaterLevel(discharge: number, stationId?: string): number {
+  if (stationId === 'KY.1') {
+    // Capacity = 600 cms. Safe < 7.0, Emergency > 9.4
+    return 4.0 + (discharge / 600) * 5.4;
+  }
+  if (stationId === 'KY.2') {
+    // Capacity = 1200 cms. Safe < 5.0, Emergency > 8.0
+    return 2.0 + (discharge / 1200) * 6.0;
+  }
   return 8.0 + Math.pow(discharge / 120, 0.6);
 }
 
 // Generate a 24-hr hydrograph consistent with the rainfall direction
-function generateHistory(currentValue: number, rainMm: number, points = 48): DataPoint[] {
+function generateHistory(currentValue: number, rainMm: number, points = 48, stationId?: string): DataPoint[] {
   const history: DataPoint[] = [];
   const now = Date.now();
   const interval = (24 * 60 * 60 * 1000) / points;
@@ -85,7 +93,7 @@ function generateHistory(currentValue: number, rainMm: number, points = 48): Dat
       history.push({
         time,
         value: Math.round(jitter(value, value * 0.02) * 10) / 10,
-        waterLevel: Math.round(valueToWaterLevel(value) * 100) / 100,
+        waterLevel: Math.round(valueToWaterLevel(value, stationId) * 100) / 100,
       });
     }
   } else if (rainMm <= 30) {
@@ -96,7 +104,7 @@ function generateHistory(currentValue: number, rainMm: number, points = 48): Dat
       history.push({
         time,
         value: Math.round(Math.max(0, value) * 10) / 10,
-        waterLevel: Math.round(valueToWaterLevel(Math.max(0, value)) * 100) / 100,
+        waterLevel: Math.round(valueToWaterLevel(Math.max(0, value), stationId) * 100) / 100,
       });
     }
   } else {
@@ -117,7 +125,7 @@ function generateHistory(currentValue: number, rainMm: number, points = 48): Dat
       history.push({
         time,
         value: Math.round(Math.max(0, value) * 10) / 10,
-        waterLevel: Math.round(valueToWaterLevel(Math.max(0, value)) * 100) / 100,
+        waterLevel: Math.round(valueToWaterLevel(Math.max(0, value), stationId) * 100) / 100,
       });
     }
   }
@@ -147,21 +155,23 @@ function getStationRain(stationId: string, gfs: GFSForecastData | null): number 
 }
 
 // Baseline discharge per station (at normal conditions)
+// Note: values are intentionally set well away from threshold boundaries
+// to prevent random jitter from flipping status every tick.
 const BASE_DISCHARGE: Record<string, number> = {
-  'KY.1':  420,
-  'Y.20':  590,
-  'Y.38':  155,
-  'Y.34':  130,
-  'KY.2':  780,
-  'Y.1C':  870,
-  'KY.3': 1050,
+  'KY.1':   380,  // KY.1 safe threshold at 7.0m water level ≈ 420cms; keep below
+  'Y.20':   560,  // ~51% of 1104 capacity — safe
+  'Y.38':   130,  // ~40% of 325 capacity — safe
+  'Y.34':   100,  // ~19% of 535 capacity — safe
+  'KY.2':   680,  // ~57% of 1200 capacity — safe
+  'Y.1C':   870,  // ~83% of 1042 — Watch zone (realistic)
+  'KY.3':   950,  // ~72% of 1325 capacity — watch zone
 };
 
-function generateStationReading(stationId: string): StationReading {
+function generateStationReading(stationId: string, realRika?: any): StationReading {
   const def = STATION_DEFINITIONS[stationId as keyof typeof STATION_DEFINITIONS];
   if (!def) throw new Error(`Unknown station: ${stationId}`);
 
-  const rain = getStationRain(stationId, latestGFS);
+  const rain = realRika?.rainfall !== undefined ? realRika.rainfall : getStationRain(stationId, latestGFS);
   const flowFactor = rainToFlowFactor(rain);
   const { trend, direction } = rainToTrend(rain);
 
@@ -176,12 +186,12 @@ function generateStationReading(stationId: string): StationReading {
     ? (discharge / def.channelCapacity) * 100
     : 0;
 
-  const waterLevel = valueToWaterLevel(discharge);
+  const waterLevel = valueToWaterLevel(discharge, stationId);
 
-  // Status derived from discharge (same thresholds as before)
-  const status = getAlertStatus(discharge * (Y1C_CHANNEL_CAPACITY / (def.channelCapacity || 1042)));
+  // Status derived using updated station-specific logic
+  const status = getStationStatus(stationId, waterLevel, discharge);
 
-  const history = generateHistory(discharge, rain);
+  const history = generateHistory(discharge, rain, 48, stationId);
 
   // Rainfall shown in telemetry should match GFS zone (not random)
   const rainfallDisplay = rain > 0 ? jitter(rain, rain * 0.15) : jitter(0.5, 0.5);
@@ -201,9 +211,9 @@ function generateStationReading(stationId: string): StationReading {
     status,
     timestamp: new Date().toISOString(),
     type: def.type,
-    rainfall: Math.round(Math.max(0, rainfallDisplay) * 10) / 10,
-    soilMoisture: rain > 30 ? jitter(88, 6) : rain > 10 ? jitter(72, 8) : jitter(55, 8),
-    windSpeed: jitter(3.5, 3),
+    rainfall: realRika?.rainfall !== undefined ? realRika.rainfall : Math.round(Math.max(0, rainfallDisplay) * 10) / 10,
+    soilMoisture: realRika?.soilMoisture !== undefined ? realRika.soilMoisture : (rain > 30 ? jitter(88, 6) : rain > 10 ? jitter(72, 8) : jitter(55, 8)),
+    windSpeed: realRika?.windSpeed !== undefined ? realRika.windSpeed : jitter(3.5, 3),
     history,
   };
 }
@@ -232,7 +242,7 @@ function generateForecasts(currentDischarge: number): ForecastHorizon[] {
       jitter(currentDischarge * growthRate, currentDischarge * 0.02),
       0, 2000
     );
-    const predictedWaterLevel = valueToWaterLevel(predictedDischarge);
+    const predictedWaterLevel = valueToWaterLevel(predictedDischarge, 'Y.1C');
     const forecastCapacityPercent = (predictedDischarge / Y1C_CHANNEL_CAPACITY) * 100;
     const uncertaintyPercent = 3 + hours * 2.5;
 
@@ -244,7 +254,7 @@ function generateForecasts(currentDischarge: number): ForecastHorizon[] {
       trend.push({
         time: t,
         value: Math.round(jitter(v, v * 0.02) * 10) / 10,
-        waterLevel: Math.round(valueToWaterLevel(v) * 100) / 100,
+        waterLevel: Math.round(valueToWaterLevel(v, 'Y.1C') * 100) / 100,
       });
     }
 
@@ -265,7 +275,7 @@ function generateForecasts(currentDischarge: number): ForecastHorizon[] {
 }
 
 // ===== MAIN EXPORT =====
-export function generateMockData(): {
+export function generateMockData(realRika?: any): {
   stations: Record<string, StationReading>;
   forecasts: ForecastHorizon[];
 } {
@@ -274,7 +284,7 @@ export function generateMockData(): {
   const stationIds = Object.keys(STATION_DEFINITIONS);
   const stations: Record<string, StationReading> = {};
   for (const id of stationIds) {
-    stations[id] = generateStationReading(id);
+    stations[id] = generateStationReading(id, realRika);
   }
 
   const y1cDischarge = stations['Y.1C']?.discharge ?? 870;

@@ -1,5 +1,5 @@
 // ===== ALERT STATUS TYPES =====
-export type AlertStatus = 'safe' | 'watch' | 'warning' | 'emergency';
+export type AlertStatus = 'safe' | 'watch' | 'warning' | 'severe-warning' | 'emergency';
 
 // ===== STATION DATA =====
 export interface StationReading {

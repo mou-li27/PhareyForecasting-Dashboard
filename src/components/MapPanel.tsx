@@ -2,7 +2,11 @@
 
 import React, { useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import dynamic from 'next/dynamic';
 import { STATION_DEFINITIONS, getStatusColor } from '@/lib/constants';
+
+const LeafletMap = dynamic(() => import('./LeafletMap'), { ssr: false });
+
 import { setSelectedDistrict, setSelectedBasin } from '@/lib/store';
 import { RootState } from '@/lib/store';
 import phraeData from '@/lib/phrae-districts.json';
@@ -15,34 +19,7 @@ const BOUNDS = { minLng: 99.38, maxLng: 100.56, minLat: 17.68, maxLat: 18.89 };
 const SVG_W = 800;
 const SVG_H = 950;
 
-// Project [lng, lat] → [svgX, svgY]
-function project(lng: number, lat: number): [number, number] {
-  const x = ((lng - BOUNDS.minLng) / (BOUNDS.maxLng - BOUNDS.minLng)) * SVG_W;
-  // Lat is inverted in SVG (Y grows downward)
-  const y = ((BOUNDS.maxLat - lat) / (BOUNDS.maxLat - BOUNDS.minLat)) * SVG_H;
-  return [x, y];
-}
-
-// Convert a GeoJSON polygon ring to an SVG path 'd' string
-function ringToPath(ring: number[][]): string {
-  return ring
-    .map(([lng, lat], i) => {
-      const [x, y] = project(lng, lat);
-      return `${i === 0 ? 'M' : 'L'}${x.toFixed(2)},${y.toFixed(2)}`;
-    })
-    .join(' ') + ' Z';
-}
-
-// Build path for a feature (handles Polygon + MultiPolygon)
-function featureToPath(geometry: any): string {
-  if (geometry.type === 'Polygon') {
-    return ringToPath(geometry.coordinates[0]);
-  }
-  if (geometry.type === 'MultiPolygon') {
-    return geometry.coordinates.map((poly: number[][][]) => ringToPath(poly[0])).join(' ');
-  }
-  return '';
-}
+// Build path function removed as Leaflet natively handles GeoJSON projection
 
 const DISTRICT_BASINS: Record<string, string[]> = {
   MuangPhrae: ['Y.34', 'KY.2', 'Y.1C'],
@@ -84,12 +61,13 @@ export default function MapPanel() {
       let maxFlow = 0;
       basins.forEach((bid) => {
         const st = stationsData[bid];
-        if (st?.status === 'emergency' || st?.status === 'warning') isRed = true;
-        if (st?.status === 'watch') isAmber = true;
+        if (st?.status === 'emergency' || st?.status === 'severe-warning') isRed = true;
+        else if (st?.status === 'warning' || st?.status === 'watch') isAmber = true;
+
         const pred = calculateCausalPrediction(stationsData, gfs, bid);
         if (pred) {
-          if (['Severe Risk', 'Extreme Risk', 'High Risk'].includes(pred.riskLevel)) isRed = true;
-          if (pred.riskLevel === 'Moderate Risk') isAmber = true;
+          if (['Severe Risk', 'Extreme Risk'].includes(pred.riskLevel)) isRed = true;
+          else if (pred.riskLevel === 'Moderate Risk') isAmber = true;
           maxFlow = Math.max(maxFlow, pred.projectedDischarge);
         }
       });
@@ -98,23 +76,16 @@ export default function MapPanel() {
       result[name] = { color, riskLevel, gfsRain, maxFlow };
     });
     return result;
-  }, [stationsData, gfsState]);
+  }, [stationsData, gfsState.data]); // depend on .data only, not loading/error booleans
 
-  // ── Pre-compute SVG paths ────────────────────────────────────────────────────
-  const districtPaths = useMemo(() => {
-    return (phraeData as any).features.map((f: any) => ({
-      name: f.properties.NAME_2,
-      path: featureToPath(f.geometry),
-    }));
-  }, []);
+  // SVG Paths pre-computation removed - handled by Leaflet natively
 
-  // ── Station SVG coords ───────────────────────────────────────────────────────
+  // ── Station Marker Data ───────────────────────────────────────────────────────
   const stationMarkers = useMemo(() => {
     return Object.entries(STATION_DEFINITIONS).map(([id, st]) => {
-      const [x, y] = project(st.lng, st.lat);
       const status = stationsData[id]?.status || 'safe';
       const color = getStatusColor(status);
-      return { id, x, y, color, name: st.name, status };
+      return { id, lat: st.lat, lng: st.lng, color, name: st.name, status };
     });
   }, [stationsData]);
 
@@ -122,23 +93,8 @@ export default function MapPanel() {
     dispatch(setSelectedDistrict(name === selectedDistrict ? null : name));
   };
 
-  const handleDistrictMouseMove = (e: React.MouseEvent<SVGPathElement>, name: string) => {
-    const risk = districtRisk[name];
-    setTooltip({
-      x: e.nativeEvent.offsetX + 12,
-      y: e.nativeEvent.offsetY + 12,
-      content: `${name}\n${risk?.riskLevel ?? '—'}\nRain: ${risk?.gfsRain?.toFixed(1) ?? 0} mm`,
-    });
-  };
-
-  const handleStationMouseMove = (e: React.MouseEvent<SVGCircleElement>, id: string) => {
-    const st = STATION_DEFINITIONS[id as keyof typeof STATION_DEFINITIONS];
-    const flow = stationsData[id]?.discharge?.toFixed(0) ?? '—';
-    setTooltip({
-      x: e.nativeEvent.offsetX + 12,
-      y: e.nativeEvent.offsetY + 12,
-      content: `${id}\n${st?.name}\nFlow: ${flow} cms`,
-    });
+  const handleStationClick = (id: string) => {
+    dispatch(setSelectedBasin(id));
   };
 
   return (
@@ -167,94 +123,17 @@ export default function MapPanel() {
       </div>
 
       {/* Map Area */}
-      <div
-        style={{ flex: 1, position: 'relative', minHeight: 0, overflow: 'hidden', background: '#f1f5f9' }}
-        onMouseLeave={() => setTooltip(null)}
-      >
-        <svg
-          viewBox={`0 0 ${SVG_W} ${SVG_H}`}
-          preserveAspectRatio="xMidYMid meet"
-          style={{ width: '100%', height: '100%', display: 'block' }}
-        >
-          {/* District fills */}
-          {districtPaths.map(({ name, path }: { name: string; path: string }) => {
-            const risk = districtRisk[name] ?? { color: '#22c55e' };
-            const isSelected = selectedDistrict === name;
-            const isHovered = hoveredDistrict === name;
-            return (
-              <path
-                key={name}
-                d={path}
-                fill={risk.color}
-                fillOpacity={isSelected ? 0.85 : isHovered ? 0.75 : 0.6}
-                stroke={isSelected ? '#1e293b' : '#ffffff'}
-                strokeWidth={isSelected ? 3 : isHovered ? 2.5 : 1.5}
-                style={{ cursor: 'pointer', transition: 'fill-opacity 0.15s, stroke-width 0.15s' }}
-                onClick={() => handleDistrictClick(name)}
-                onMouseEnter={() => setHoveredDistrict(name)}
-                onMouseLeave={() => { setHoveredDistrict(null); setTooltip(null); }}
-                onMouseMove={(e) => handleDistrictMouseMove(e, name)}
-              />
-            );
-          })}
-
-          {/* Station markers */}
-          {stationMarkers.map(({ id, x, y, color, name, status }) => (
-            <g key={id} style={{ cursor: 'pointer' }} onClick={() => dispatch(setSelectedBasin(id))}>
-              <circle
-                cx={x}
-                cy={y}
-                r={hoveredStation === id ? 9 : 7}
-                fill={color}
-                stroke="#ffffff"
-                strokeWidth={2}
-                fillOpacity={0.95}
-                style={{ transition: 'r 0.15s' }}
-                onMouseEnter={() => setHoveredStation(id)}
-                onMouseLeave={() => { setHoveredStation(null); setTooltip(null); }}
-                onMouseMove={(e) => handleStationMouseMove(e, id)}
-              />
-              <text
-                x={x + 11}
-                y={y + 4}
-                fontSize={11}
-                fontWeight={700}
-                fill="#1e293b"
-                stroke="#f1f5f9"
-                strokeWidth={3}
-                paintOrder="stroke"
-                style={{ pointerEvents: 'none', userSelect: 'none' }}
-              >
-                {id}
-              </text>
-            </g>
-          ))}
-        </svg>
-
-        {/* Tooltip */}
-        {tooltip && (
-          <div
-            style={{
-              position: 'absolute',
-              left: tooltip.x,
-              top: tooltip.y,
-              background: 'rgba(15,23,42,0.92)',
-              color: '#f8fafc',
-              borderRadius: 6,
-              padding: '6px 10px',
-              fontSize: '0.72rem',
-              fontWeight: 500,
-              pointerEvents: 'none',
-              whiteSpace: 'pre',
-              lineHeight: 1.6,
-              zIndex: 99,
-              boxShadow: '0 4px 12px rgba(0,0,0,0.25)',
-              maxWidth: 200,
-            }}
-          >
-            {tooltip.content}
-          </div>
-        )}
+      <div style={{ flex: 1, position: 'relative', minHeight: 0, overflow: 'hidden', background: '#f8fafc' }}>
+        <div style={{ position: 'absolute', inset: 0, zIndex: 0, opacity: 1.0 }}>
+          <LeafletMap 
+            bounds={[[BOUNDS.minLat, BOUNDS.minLng], [BOUNDS.maxLat, BOUNDS.maxLng]]}
+            districtRisk={districtRisk}
+            stationMarkers={stationMarkers}
+            selectedDistrict={selectedDistrict}
+            onDistrictClick={handleDistrictClick}
+            onStationClick={handleStationClick}
+          />
+        </div>
 
         {/* Legend */}
         <div

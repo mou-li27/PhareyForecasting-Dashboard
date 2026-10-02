@@ -7,7 +7,7 @@ export interface CausalPrediction {
   rainContribution: number;
   upstreamContribution: number;
   riskLevel: 'Low Risk' | 'Moderate Risk' | 'Severe Risk' | 'Extreme Risk';
-  targetStatus: 'safe' | 'watch' | 'warning' | 'emergency';
+  targetStatus: 'safe' | 'watch' | 'warning' | 'severe-warning' | 'emergency';
   targetStatusText: string;
   leadTime: string; // Urgency
   causalBreakdown: string;
@@ -57,9 +57,10 @@ export function calculateCausalPrediction(
       rainContribution = C * (gfsRain / 6) * A * conversionFactor;
     }
     upstreamContribution = stations['KY.1']?.discharge || 0;
+    const lateralBaseflow = Math.max(0, currentBaseflow - (stations['KY.1']?.discharge || 0));
     leadTime = '~1-2 Hours';
-    projectedDischarge = upstreamContribution + rainContribution;
-    causalBreakdown = `Risk driven by upstream wave from KY.1 (${upstreamContribution.toFixed(1)} cms) and localized rain.`;
+    projectedDischarge = upstreamContribution + rainContribution + lateralBaseflow;
+    causalBreakdown = `Risk driven by upstream wave from KY.1 (${upstreamContribution.toFixed(1)} cms), lateral inflow (${lateralBaseflow.toFixed(1)} cms), and localized rain.`;
 
   } else if (targetBasinId === 'Y.38' || targetBasinId === 'Y.34') {
     if (gfsData && gfsData.central > 0) {
@@ -79,9 +80,10 @@ export function calculateCausalPrediction(
     const y20 = stations['Y.20']?.discharge || 0;
     const tributaries = (stations['Y.38']?.discharge || 0) + (stations['Y.34']?.discharge || 0);
     upstreamContribution = y20 + tributaries;
+    const lateralBaseflow = Math.max(0, currentBaseflow - upstreamContribution);
     leadTime = '~2.5 Hours';
-    projectedDischarge = upstreamContribution + rainContribution;
-    causalBreakdown = `Risk driven by upstream wave from Y.20 (${y20.toFixed(1)} cms) and tributaries (${tributaries.toFixed(1)} cms).`;
+    projectedDischarge = upstreamContribution + rainContribution + lateralBaseflow;
+    causalBreakdown = `Risk driven by upstream wave from Y.20 (${y20.toFixed(1)} cms), tributaries (${tributaries.toFixed(1)} cms), and local rain.`;
 
   } else if (targetBasinId === 'Y.1C') {
     if (gfsData && gfsData.central > 0) {
@@ -89,9 +91,10 @@ export function calculateCausalPrediction(
       rainContribution = C * (gfsRain / 6) * A * conversionFactor;
     }
     upstreamContribution = stations['KY.2']?.discharge || 0;
+    const lateralBaseflow = Math.max(0, currentBaseflow - upstreamContribution);
     leadTime = '~3.5 to 4.5 Hours';
-    projectedDischarge = upstreamContribution + rainContribution;
-    causalBreakdown = `Risk driven by ${gfsRain.toFixed(1)}mm GFS predicted Central rain, plus upstream wave from KY.2 (${upstreamContribution.toFixed(1)} cms).`;
+    projectedDischarge = upstreamContribution + rainContribution + lateralBaseflow;
+    causalBreakdown = `Risk driven by ${gfsRain.toFixed(1)}mm GFS predicted Central rain, plus upstream wave from KY.2 (${upstreamContribution.toFixed(1)} cms) and lateral inflow.`;
 
   } else if (targetBasinId === 'KY.3') {
     if (gfsData && gfsData.central > 0) {
@@ -99,9 +102,10 @@ export function calculateCausalPrediction(
       rainContribution = C * (gfsRain / 6) * A * conversionFactor;
     }
     upstreamContribution = stations['Y.1C']?.discharge || 0;
+    const lateralBaseflow = Math.max(0, currentBaseflow - upstreamContribution);
     leadTime = '~6.0 to 8.0 Hours';
-    projectedDischarge = upstreamContribution + rainContribution;
-    causalBreakdown = `Downstream risk driven by Central wave originating from Y.1C (${upstreamContribution.toFixed(1)} cms) and local rainfall.`;
+    projectedDischarge = upstreamContribution + rainContribution + lateralBaseflow;
+    causalBreakdown = `Downstream risk driven by Central wave originating from Y.1C (${upstreamContribution.toFixed(1)} cms), lateral inflow, and local rainfall.`;
   }
 
   // Determine Level based on physical thresholds
@@ -143,6 +147,31 @@ export function calculateCausalPrediction(
 
   const row = catalog[level];
 
+  // Build station-appropriate upstream status label
+  let upstreamStatusText = row.y20;
+  let upstreamTrendText = row.ky1;
+
+  if (targetBasinId === 'KY.1') {
+    // KY.1 is headwater — upstream is GFS rainfall, no river station above it
+    upstreamStatusText = gfsRain > 50 ? `High GFS Rain (${gfsRain.toFixed(1)}mm)` : gfsRain > 20 ? `Moderate Rain (${gfsRain.toFixed(1)}mm)` : `Low Rain (${gfsRain.toFixed(1)}mm)`;
+    upstreamTrendText = row.ky1; // KY.1 itself
+  } else if (targetBasinId === 'Y.20') {
+    upstreamStatusText = 'N/A (Headwater)';
+    // KY.1 is direct upstream for Y.20
+    const ky1Status = stations['KY.1']?.status || 'safe';
+    upstreamTrendText = ky1Status === 'rising' ? 'Rising' : row.ky1;
+  } else if (targetBasinId === 'Y.38' || targetBasinId === 'Y.34') {
+    upstreamStatusText = gfsRain > 30 ? `Heavy Local Rain (${gfsRain.toFixed(1)}mm)` : `Local Rain (${gfsRain.toFixed(1)}mm)`;
+    upstreamTrendText = row.ky1;
+  } else if (targetBasinId === 'KY.3') {
+    // Upstream of KY.3 is Y.1C
+    const y1cDischarge = stations['Y.1C']?.discharge || 0;
+    const y1cCap = (y1cDischarge / (STATION_DEFINITIONS['Y.1C']?.channelCapacity || 1042)) * 100;
+    upstreamStatusText = y1cCap >= 120 ? `Emergency (>120%)` : y1cCap >= 100 ? `Warning (>100%)` : y1cCap >= 80 ? `Watch (80-100%)` : `Safe (<80%)`;
+    const y1cTrend = stations['Y.1C']?.trendDirection || 'stable';
+    upstreamTrendText = y1cTrend === 'rising' ? 'Rising Trend' : y1cTrend === 'falling' ? 'Falling / Receding' : 'Stable';
+  }
+
   return {
     projectedDischarge,
     rainContribution,
@@ -152,8 +181,8 @@ export function calculateCausalPrediction(
     targetStatusText: row.targetText,
     leadTime: row.urgency,
     causalBreakdown: `Determined as Level ${level} based on Causal Catalog Matrix. Projected Flow: ${projectedDischarge.toFixed(1)} cms. Base Breakdown: ${causalBreakdown}`,
-    y20Status: targetBasinId === 'Y.20' ? 'N/A (Headwater)' : row.y20,
-    ky1Trend: row.ky1,
+    y20Status: upstreamStatusText,
+    ky1Trend: upstreamTrendText,
     certainty: row.certainty,
     actionProtocol: row.action,
   };

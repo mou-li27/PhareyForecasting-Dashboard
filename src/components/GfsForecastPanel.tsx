@@ -27,15 +27,15 @@ export default function GfsForecastPanel() {
     }
   }
 
-  // Rainfall based risk warning thresholds (arbitrary based on 6hr accum)
+  // Rainfall based risk warning thresholds (6hr accumulation)
   let rainRisk = 'Low';
   let rainColor = '#22c55e'; // Safe
   if (gfsRain >= 100) {
     rainRisk = 'High';
-    rainColor = '#ef4444'; // Emergency
+    rainColor = '#ef4444'; // Emergency — red
   } else if (gfsRain >= 50) {
     rainRisk = 'Moderate';
-    rainColor = '#eab308'; // Watch
+    rainColor = '#f97316'; // Warning — orange (consistent with dashboard color scheme)
   }
 
   return (

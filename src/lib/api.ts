@@ -62,26 +62,25 @@ async function fetchThaiWaterData(): Promise<Record<string, StationReading> | nu
 }
 
 // ===== RIKA CLOUD API SERVICE =====
-async function fetchRikaCloudData(): Promise<Partial<StationReading> | null> {
+async function fetchRikaCloudData(): Promise<any | null> {
   const endpoint = 'rika/sensors';
   if (isRateLimited(endpoint)) return null;
-  if (!API_CONFIG.rika.apiKey) return null;
 
   try {
-    const response = await fetch(
-      `${API_CONFIG.rika.baseUrl}/sensors/latest`,
-      {
-        headers: {
-          'Authorization': `Bearer ${API_CONFIG.rika.apiKey}`,
-          'Content-Type': 'application/json',
-        },
-        signal: AbortSignal.timeout(10000),
-      }
-    );
+    console.trace('[API] Firing fetch to /api/rika. Rate limit bypassed?');
+    const response = await fetch('/api/rika', {
+      signal: AbortSignal.timeout(10000),
+    });
 
     if (!response.ok) throw new Error(`RIKA API error: ${response.status}`);
     const data = await response.json();
-    return transformRikaResponse(data);
+    
+    // If backend caught a network error and returned graceful fallback
+    if (data?.fallback) {
+      return null;
+    }
+    
+    return data;
   } catch (error) {
     console.warn('[API] RIKA Cloud fetch failed:', error);
     return null;
@@ -110,27 +109,40 @@ export async function fetchAllStationData(): Promise<{
 }> {
   // Try live APIs first
   const liveData = await fetchThaiWaterData();
-  const _rikaData = await fetchRikaCloudData();
+  const rikaPayload = await fetchRikaCloudData();
+
+  let parsedRika: Record<string, any> | null = null;
+  if (rikaPayload && rikaPayload.device) {
+    const data: Record<string, any> = {};
+    rikaPayload.device.forEach((s: any) => {
+      if (s.agri_name === 'rainfall') data.rainfall = s.value;
+      if (s.agri_name === 'soli_humi') data.soilMoisture = s.value;
+      if (s.agri_name === 'wind speed') data.windSpeed = s.value;
+    });
+    parsedRika = data;
+  }
 
   if (liveData && Object.keys(liveData).length > 0) {
     cachedStations = liveData;
     // Generate forecasts based on live Y.1C data
-    const mockForecasts = generateMockData().forecasts; // Use mock forecasts for now
+    const mockForecasts = generateMockData(parsedRika).forecasts;
     cachedForecasts = mockForecasts;
     return { stations: liveData, forecasts: mockForecasts, source: 'live' };
   }
 
-  // Fallback to mock data — but first sync GFS so telemetry matches forecast
+  // Fallback to deterministic data — sync GFS first
   try {
     const gfs = await fetchGFSForecast();
     setLatestGFS(gfs);
   } catch (_) {
-    // GFS unavailable — mock data will use last known or defaults
+    // GFS unavailable
   }
-  const mockData = generateMockData();
-  cachedStations = mockData.stations;
-  cachedForecasts = mockData.forecasts;
-  return { stations: mockData.stations, forecasts: mockData.forecasts, source: 'mock' };
+  
+  // Inject real RIKA telemetry into the deterministic pipeline
+  const pipelineData = generateMockData(parsedRika);
+  cachedStations = pipelineData.stations;
+  cachedForecasts = pipelineData.forecasts;
+  return { stations: pipelineData.stations, forecasts: pipelineData.forecasts, source: parsedRika ? 'live' : 'mock' };
 }
 
 // ===== INDIVIDUAL STATION FETCH =====

@@ -56,7 +56,7 @@ const dashboardSlice = createSlice({
 
       // Compute global status from Y.1C
       if (y1c) {
-        state.globalStatus = getAlertStatus(y1c.discharge);
+        state.globalStatus = y1c.status;
       }
 
       // Update data freshness

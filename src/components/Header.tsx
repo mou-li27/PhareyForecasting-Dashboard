@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/lib/store';
 import { getStatusLabel, getStatusColor, getStatusAction } from '@/lib/constants';
+import Link from 'next/link';
 
 export default function Header() {
   const globalStatus = useSelector((s: RootState) => s.dashboard.globalStatus);
@@ -35,29 +36,38 @@ export default function Header() {
   const statusLabel = getStatusLabel(globalStatus);
   const statusAction = getStatusAction(globalStatus);
 
-  const showWarningBanner = globalStatus === 'warning' || globalStatus === 'emergency';
+  const showWarningBanner = globalStatus === 'watch' || globalStatus === 'warning' || globalStatus === 'severe-warning' || globalStatus === 'emergency';
+
+  // Banner text is specific to the actual global status — not generic
+  const bannerText = globalStatus === 'watch'
+    ? '⚠ WATCH: ELEVATED WATER LEVELS — INCREASE MONITORING'
+    : `⚠ ${globalStatus.toUpperCase()}: ${statusAction.toUpperCase()}`;
 
   return (
     <header className="header-bar" id="dashboard-header">
       {/* Left: Logo + Title */}
       <div className="header-title">
-        <div
+        <Link href="/"
           style={{
             width: 36,
             height: 36,
-            borderRadius: '50%',
-            background: 'linear-gradient(135deg, #1e40af, #3b82f6)',
+            borderRadius: 10,
+            background: 'linear-gradient(135deg, #2563eb, #0ea5e9)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            fontSize: '0.9rem',
-            fontWeight: 800,
             flexShrink: 0,
-            border: '2px solid rgba(59, 130, 246, 0.5)',
+            boxShadow: '0 2px 8px rgba(37,99,235,0.35)',
+            textDecoration: 'none',
+            cursor: 'pointer'
           }}
         >
-          🌊
-        </div>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round">
+            <path d="M2 12c2-4 6-8 10-8s8 4 10 8" />
+            <path d="M2 16c2-4 6-8 10-8s8 4 10 8" />
+            <path d="M2 20c2-4 6-8 10-8s8 4 10 8" />
+          </svg>
+        </Link>
         <div>
           <div style={{ fontSize: '0.95rem', fontWeight: 700, letterSpacing: '0.02em' }}>
             Phrae Municipality Real-Time Flood Early Warning Dashboard
@@ -71,7 +81,7 @@ export default function Header() {
       {/* Center: Warning Banner (conditional) */}
       {showWarningBanner && (
         <div className="header-warning-banner" id="warning-banner">
-          ⚠ {globalStatus.toUpperCase()}: {statusAction.toUpperCase()}
+          {bannerText}
         </div>
       )}
 

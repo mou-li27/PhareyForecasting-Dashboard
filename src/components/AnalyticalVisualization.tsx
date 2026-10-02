@@ -60,7 +60,7 @@ function calculateCausalPrediction(stations: Record<string, StationReading>, tar
   } else if (capacity >= 70 && capacity < 85 && isRising) {
     probabilityStr = 'Moderate (50%–65%)';
     probabilityLevel = 'Moderate';
-    probabilityColor = '#eab308'; // Yellow
+    probabilityColor = '#f97316'; // Orange — consistent with Watch color scheme
     leadTime = '~4 Hours';
     ruleDesc = `Moderate risk. Upstream station ${trigger.stationId} has reached Watch status and discharge is actively rising.`;
   }

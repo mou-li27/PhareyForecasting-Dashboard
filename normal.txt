@@ -1,0 +1,2002 @@
+
+========================================
+NODE 1 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 1 -> GATEWAY
+Node ID                 : 1
+Sequence Number        : 356
+Average Distance       : 234.00 mm
+Cumulative Settlement  : 166.60 mm
+Local Change           : 166.60 mm
+Velocity               : 10.457 mm/min
+Velocity Peak          : 23.238 mm/min
+Average Tilt X         : 3.26 deg
+Average Tilt Y         : 7.62 deg
+Acceleration RMS       : 0.1970 g
+Acceleration Peak      : 0.3400 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 1 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 2 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 2 -> NODE 1 -> GATEWAY
+Node ID                 : 2
+Sequence Number        : 352
+Average Distance       : 227.40 mm
+Cumulative Settlement  : 0.00 mm
+Local Change           : 44.30 mm
+Velocity               : -1.168 mm/min
+Velocity Peak          : 29.194 mm/min
+Average Tilt X         : 0.84 deg
+Average Tilt Y         : 1.57 deg
+Acceleration RMS       : 0.0229 g
+Acceleration Peak      : 0.1643 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 2 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 1 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 1 -> GATEWAY
+Node ID                 : 1
+Sequence Number        : 357
+Average Distance       : 232.20 mm
+Cumulative Settlement  : 164.80 mm
+Local Change           : 164.80 mm
+Velocity               : 4.643 mm/min
+Velocity Peak          : 29.016 mm/min
+Average Tilt X         : 3.22 deg
+Average Tilt Y         : 7.74 deg
+Acceleration RMS       : 0.1952 g
+Acceleration Peak      : 0.2391 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 1 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 2 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 2 -> NODE 1 -> GATEWAY
+Node ID                 : 2
+Sequence Number        : 353
+Average Distance       : 226.60 mm
+Cumulative Settlement  : 0.00 mm
+Local Change           : 45.10 mm
+Velocity               : -4.671 mm/min
+Velocity Peak          : 17.517 mm/min
+Average Tilt X         : 0.80 deg
+Average Tilt Y         : 1.37 deg
+Acceleration RMS       : 0.0224 g
+Acceleration Peak      : 0.1244 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 2 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 1 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 1 -> GATEWAY
+Node ID                 : 1
+Sequence Number        : 358
+Average Distance       : 233.00 mm
+Cumulative Settlement  : 165.60 mm
+Local Change           : 165.60 mm
+Velocity               : -5.797 mm/min
+Velocity Peak          : 23.188 mm/min
+Average Tilt X         : 3.23 deg
+Average Tilt Y         : 7.79 deg
+Acceleration RMS       : 0.1955 g
+Acceleration Peak      : 0.2124 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 1 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 2 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 2 -> NODE 1 -> GATEWAY
+Node ID                 : 2
+Sequence Number        : 354
+Average Distance       : 227.60 mm
+Cumulative Settlement  : 0.00 mm
+Local Change           : 44.10 mm
+Velocity               : 1.168 mm/min
+Velocity Peak          : 17.517 mm/min
+Average Tilt X         : 0.79 deg
+Average Tilt Y         : 1.56 deg
+Acceleration RMS       : 0.0206 g
+Acceleration Peak      : 0.0469 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 2 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 1 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 1 -> GATEWAY
+Node ID                 : 1
+Sequence Number        : 359
+Average Distance       : 234.20 mm
+Cumulative Settlement  : 166.80 mm
+Local Change           : 166.80 mm
+Velocity               : 11.607 mm/min
+Velocity Peak          : 34.820 mm/min
+Average Tilt X         : 3.22 deg
+Average Tilt Y         : 7.61 deg
+Acceleration RMS       : 0.1952 g
+Acceleration Peak      : 0.2136 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 1 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 2 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 2 -> NODE 1 -> GATEWAY
+Node ID                 : 2
+Sequence Number        : 355
+Average Distance       : 228.00 mm
+Cumulative Settlement  : 0.00 mm
+Local Change           : 43.70 mm
+Velocity               : 8.174 mm/min
+Velocity Peak          : 11.678 mm/min
+Average Tilt X         : 0.69 deg
+Average Tilt Y         : 1.66 deg
+Acceleration RMS       : 0.0203 g
+Acceleration Peak      : 0.0399 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 2 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 1 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 1 -> GATEWAY
+Node ID                 : 1
+Sequence Number        : 360
+Average Distance       : 233.40 mm
+Cumulative Settlement  : 166.00 mm
+Local Change           : 166.00 mm
+Velocity               : 2.324 mm/min
+Velocity Peak          : 23.238 mm/min
+Average Tilt X         : 3.34 deg
+Average Tilt Y         : 7.88 deg
+Acceleration RMS       : 0.1952 g
+Acceleration Peak      : 0.2141 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 1 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 2 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 2 -> NODE 1 -> GATEWAY
+Node ID                 : 2
+Sequence Number        : 356
+Average Distance       : 228.20 mm
+Cumulative Settlement  : 0.00 mm
+Local Change           : 43.50 mm
+Velocity               : 3.503 mm/min
+Velocity Peak          : 11.678 mm/min
+Average Tilt X         : 0.71 deg
+Average Tilt Y         : 1.75 deg
+Acceleration RMS       : 0.0204 g
+Acceleration Peak      : 0.0340 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 2 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 1 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 1 -> GATEWAY
+Node ID                 : 1
+Sequence Number        : 361
+Average Distance       : 233.40 mm
+Cumulative Settlement  : 166.00 mm
+Local Change           : 166.00 mm
+Velocity               : -4.647 mm/min
+Velocity Peak          : 23.236 mm/min
+Average Tilt X         : 3.23 deg
+Average Tilt Y         : 7.75 deg
+Acceleration RMS       : 0.1956 g
+Acceleration Peak      : 0.2310 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 1 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 2 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 2 -> NODE 1 -> GATEWAY
+Node ID                 : 2
+Sequence Number        : 357
+Average Distance       : 227.60 mm
+Cumulative Settlement  : 0.00 mm
+Local Change           : 44.10 mm
+Velocity               : -2.336 mm/min
+Velocity Peak          : 17.517 mm/min
+Average Tilt X         : 0.68 deg
+Average Tilt Y         : 1.59 deg
+Acceleration RMS       : 0.0212 g
+Acceleration Peak      : 0.0755 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 2 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 1 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 1 -> GATEWAY
+Node ID                 : 1
+Sequence Number        : 362
+Average Distance       : 234.00 mm
+Cumulative Settlement  : 166.60 mm
+Local Change           : 166.60 mm
+Velocity               : 3.482 mm/min
+Velocity Peak          : 29.014 mm/min
+Average Tilt X         : 3.31 deg
+Average Tilt Y         : 7.83 deg
+Acceleration RMS       : 0.1953 g
+Acceleration Peak      : 0.2062 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 1 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 2 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 2 -> NODE 1 -> GATEWAY
+Node ID                 : 2
+Sequence Number        : 358
+Average Distance       : 228.00 mm
+Cumulative Settlement  : 0.00 mm
+Local Change           : 43.70 mm
+Velocity               : -1.168 mm/min
+Velocity Peak          : 11.678 mm/min
+Average Tilt X         : 0.80 deg
+Average Tilt Y         : 1.53 deg
+Acceleration RMS       : 0.0201 g
+Acceleration Peak      : 0.0306 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 2 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 1 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 1 -> GATEWAY
+Node ID                 : 1
+Sequence Number        : 363
+Average Distance       : 233.80 mm
+Cumulative Settlement  : 166.40 mm
+Local Change           : 166.40 mm
+Velocity               : 2.319 mm/min
+Velocity Peak          : 23.188 mm/min
+Average Tilt X         : 3.28 deg
+Average Tilt Y         : 7.95 deg
+Acceleration RMS       : 0.1958 g
+Acceleration Peak      : 0.2096 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 1 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 2 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 2 -> NODE 1 -> GATEWAY
+Node ID                 : 2
+Sequence Number        : 359
+Average Distance       : 228.00 mm
+Cumulative Settlement  : 0.00 mm
+Local Change           : 43.70 mm
+Velocity               : 2.336 mm/min
+Velocity Peak          : 23.355 mm/min
+Average Tilt X         : 0.64 deg
+Average Tilt Y         : 1.65 deg
+Acceleration RMS       : 0.0200 g
+Acceleration Peak      : 0.0378 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 2 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 1 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 1 -> GATEWAY
+Node ID                 : 1
+Sequence Number        : 364
+Average Distance       : 232.80 mm
+Cumulative Settlement  : 165.40 mm
+Local Change           : 165.40 mm
+Velocity               : -6.964 mm/min
+Velocity Peak          : 46.426 mm/min
+Average Tilt X         : 3.40 deg
+Average Tilt Y         : 7.77 deg
+Acceleration RMS       : 0.1961 g
+Acceleration Peak      : 0.2394 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 1 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 2 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 2 -> NODE 1 -> GATEWAY
+Node ID                 : 2
+Sequence Number        : 360
+Average Distance       : 229.40 mm
+Cumulative Settlement  : 0.00 mm
+Local Change           : 42.30 mm
+Velocity               : 8.174 mm/min
+Velocity Peak          : 23.355 mm/min
+Average Tilt X         : 1.00 deg
+Average Tilt Y         : 1.61 deg
+Acceleration RMS       : 0.0222 g
+Acceleration Peak      : 0.0711 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 2 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 1 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 1 -> GATEWAY
+Node ID                 : 1
+Sequence Number        : 365
+Average Distance       : 232.60 mm
+Cumulative Settlement  : 165.20 mm
+Local Change           : 165.20 mm
+Velocity               : -6.971 mm/min
+Velocity Peak          : 29.047 mm/min
+Average Tilt X         : 3.33 deg
+Average Tilt Y         : 7.84 deg
+Acceleration RMS       : 0.1952 g
+Acceleration Peak      : 0.2474 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 1 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 2 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 2 -> NODE 1 -> GATEWAY
+Node ID                 : 2
+Sequence Number        : 361
+Average Distance       : 228.20 mm
+Cumulative Settlement  : 0.00 mm
+Local Change           : 43.50 mm
+Velocity               : 1.168 mm/min
+Velocity Peak          : 29.194 mm/min
+Average Tilt X         : 0.74 deg
+Average Tilt Y         : 1.75 deg
+Acceleration RMS       : 0.0214 g
+Acceleration Peak      : 0.0833 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 2 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 1 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 1 -> GATEWAY
+Node ID                 : 1
+Sequence Number        : 366
+Average Distance       : 232.40 mm
+Cumulative Settlement  : 165.00 mm
+Local Change           : 165.00 mm
+Velocity               : -2.324 mm/min
+Velocity Peak          : 29.044 mm/min
+Average Tilt X         : 3.27 deg
+Average Tilt Y         : 7.75 deg
+Acceleration RMS       : 0.1953 g
+Acceleration Peak      : 0.2339 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 1 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 2 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 2 -> NODE 1 -> GATEWAY
+Node ID                 : 2
+Sequence Number        : 362
+Average Distance       : 228.00 mm
+Cumulative Settlement  : 0.00 mm
+Local Change           : 43.70 mm
+Velocity               : -8.174 mm/min
+Velocity Peak          : 29.194 mm/min
+Average Tilt X         : 0.83 deg
+Average Tilt Y         : 1.65 deg
+Acceleration RMS       : 0.0200 g
+Acceleration Peak      : 0.0359 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 2 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 1 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 1 -> GATEWAY
+Node ID                 : 1
+Sequence Number        : 367
+Average Distance       : 233.80 mm
+Cumulative Settlement  : 166.40 mm
+Local Change           : 166.40 mm
+Velocity               : 6.963 mm/min
+Velocity Peak          : 23.211 mm/min
+Average Tilt X         : 3.34 deg
+Average Tilt Y         : 8.03 deg
+Acceleration RMS       : 0.1952 g
+Acceleration Peak      : 0.2404 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 1 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 2 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 2 -> NODE 1 -> GATEWAY
+Node ID                 : 2
+Sequence Number        : 363
+Average Distance       : 227.60 mm
+Cumulative Settlement  : 0.00 mm
+Local Change           : 44.10 mm
+Velocity               : -3.503 mm/min
+Velocity Peak          : 35.033 mm/min
+Average Tilt X         : 0.69 deg
+Average Tilt Y         : 1.72 deg
+Acceleration RMS       : 0.0202 g
+Acceleration Peak      : 0.0417 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 2 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 1 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 1 -> GATEWAY
+Node ID                 : 1
+Sequence Number        : 368
+Average Distance       : 233.80 mm
+Cumulative Settlement  : 166.40 mm
+Local Change           : 166.40 mm
+Velocity               : 8.123 mm/min
+Velocity Peak          : 23.209 mm/min
+Average Tilt X         : 3.20 deg
+Average Tilt Y         : 7.90 deg
+Acceleration RMS       : 0.1949 g
+Acceleration Peak      : 0.2076 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 1 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 2 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 2 -> NODE 1 -> GATEWAY
+Node ID                 : 2
+Sequence Number        : 364
+Average Distance       : 226.40 mm
+Cumulative Settlement  : 0.00 mm
+Local Change           : 45.30 mm
+Velocity               : -9.342 mm/min
+Velocity Peak          : 35.033 mm/min
+Average Tilt X         : 0.70 deg
+Average Tilt Y         : 1.71 deg
+Acceleration RMS       : 0.0197 g
+Acceleration Peak      : 0.0341 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 2 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 1 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 1 -> GATEWAY
+Node ID                 : 1
+Sequence Number        : 369
+Average Distance       : 232.80 mm
+Cumulative Settlement  : 165.40 mm
+Local Change           : 165.40 mm
+Velocity               : -5.802 mm/min
+Velocity Peak          : 23.209 mm/min
+Average Tilt X         : 3.18 deg
+Average Tilt Y         : 7.96 deg
+Acceleration RMS       : 0.1949 g
+Acceleration Peak      : 0.2044 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 1 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 2 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 2 -> NODE 1 -> GATEWAY
+Node ID                 : 2
+Sequence Number        : 365
+Average Distance       : 227.60 mm
+Cumulative Settlement  : 0.00 mm
+Local Change           : 44.10 mm
+Velocity               : -0.000 mm/min
+Velocity Peak          : 17.517 mm/min
+Average Tilt X         : 0.75 deg
+Average Tilt Y         : 1.78 deg
+Acceleration RMS       : 0.0200 g
+Acceleration Peak      : 0.0341 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 2 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 1 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 1 -> GATEWAY
+Node ID                 : 1
+Sequence Number        : 370
+Average Distance       : 233.80 mm
+Cumulative Settlement  : 166.40 mm
+Local Change           : 166.40 mm
+Velocity               : 0.000 mm/min
+Velocity Peak          : 17.391 mm/min
+Average Tilt X         : 3.34 deg
+Average Tilt Y         : 7.90 deg
+Acceleration RMS       : 0.1954 g
+Acceleration Peak      : 0.2074 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 1 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 2 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 2 -> NODE 1 -> GATEWAY
+Node ID                 : 2
+Sequence Number        : 366
+Average Distance       : 227.60 mm
+Cumulative Settlement  : 0.00 mm
+Local Change           : 44.10 mm
+Velocity               : 7.007 mm/min
+Velocity Peak          : 35.033 mm/min
+Average Tilt X         : 0.64 deg
+Average Tilt Y         : 1.80 deg
+Acceleration RMS       : 0.0202 g
+Acceleration Peak      : 0.0298 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 2 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 1 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 1 -> GATEWAY
+Node ID                 : 1
+Sequence Number        : 371
+Average Distance       : 233.20 mm
+Cumulative Settlement  : 165.80 mm
+Local Change           : 165.80 mm
+Velocity               : 2.321 mm/min
+Velocity Peak          : 23.213 mm/min
+Average Tilt X         : 3.28 deg
+Average Tilt Y         : 7.88 deg
+Acceleration RMS       : 0.1953 g
+Acceleration Peak      : 0.2034 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 1 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 2 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 2 -> NODE 1 -> GATEWAY
+Node ID                 : 2
+Sequence Number        : 367
+Average Distance       : 227.80 mm
+Cumulative Settlement  : 0.00 mm
+Local Change           : 43.90 mm
+Velocity               : 1.168 mm/min
+Velocity Peak          : 11.678 mm/min
+Average Tilt X         : 0.62 deg
+Average Tilt Y         : 1.63 deg
+Acceleration RMS       : 0.0198 g
+Acceleration Peak      : 0.0312 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 2 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 2 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 2 -> NODE 1 -> GATEWAY
+Node ID                 : 2
+Sequence Number        : 368
+Average Distance       : 228.20 mm
+Cumulative Settlement  : 0.00 mm
+Local Change           : 43.50 mm
+Velocity               : 3.503 mm/min
+Velocity Peak          : 23.355 mm/min
+Average Tilt X         : 0.77 deg
+Average Tilt Y         : 1.71 deg
+Acceleration RMS       : 0.0199 g
+Acceleration Peak      : 0.0280 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 2 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 1 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 1 -> GATEWAY
+Node ID                 : 1
+Sequence Number        : 372
+Average Distance       : 233.00 mm
+Cumulative Settlement  : 165.60 mm
+Local Change           : 165.60 mm
+Velocity               : -4.650 mm/min
+Velocity Peak          : 23.209 mm/min
+Average Tilt X         : 3.36 deg
+Average Tilt Y         : 7.78 deg
+Acceleration RMS       : 0.1951 g
+Acceleration Peak      : 0.2086 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 1 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 2 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 2 -> NODE 1 -> GATEWAY
+Node ID                 : 2
+Sequence Number        : 369
+Average Distance       : 227.40 mm
+Cumulative Settlement  : 0.00 mm
+Local Change           : 44.30 mm
+Velocity               : -2.336 mm/min
+Velocity Peak          : 17.517 mm/min
+Average Tilt X         : 0.81 deg
+Average Tilt Y         : 1.62 deg
+Acceleration RMS       : 0.0197 g
+Acceleration Peak      : 0.0324 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 2 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 1 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 1 -> GATEWAY
+Node ID                 : 1
+Sequence Number        : 373
+Average Distance       : 232.60 mm
+Cumulative Settlement  : 165.20 mm
+Local Change           : 165.20 mm
+Velocity               : -3.461 mm/min
+Velocity Peak          : 23.101 mm/min
+Average Tilt X         : 3.48 deg
+Average Tilt Y         : 7.82 deg
+Acceleration RMS       : 0.1955 g
+Acceleration Peak      : 0.2096 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 1 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 2 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 2 -> NODE 1 -> GATEWAY
+Node ID                 : 2
+Sequence Number        : 370
+Average Distance       : 228.20 mm
+Cumulative Settlement  : 0.00 mm
+Local Change           : 43.50 mm
+Velocity               : 0.000 mm/min
+Velocity Peak          : 17.517 mm/min
+Average Tilt X         : 0.74 deg
+Average Tilt Y         : 1.76 deg
+Acceleration RMS       : 0.0198 g
+Acceleration Peak      : 0.0304 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 2 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 1 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 1 -> GATEWAY
+Node ID                 : 1
+Sequence Number        : 374
+Average Distance       : 230.60 mm
+Cumulative Settlement  : 163.20 mm
+Local Change           : 163.20 mm
+Velocity               : -13.913 mm/min
+Velocity Peak          : 28.986 mm/min
+Average Tilt X         : 3.37 deg
+Average Tilt Y         : 7.87 deg
+Acceleration RMS       : 0.1949 g
+Acceleration Peak      : 0.2066 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 1 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 2 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 2 -> NODE 1 -> GATEWAY
+Node ID                 : 2
+Sequence Number        : 371
+Average Distance       : 228.20 mm
+Cumulative Settlement  : 0.00 mm
+Local Change           : 43.50 mm
+Velocity               : 4.671 mm/min
+Velocity Peak          : 29.194 mm/min
+Average Tilt X         : 0.75 deg
+Average Tilt Y         : 1.77 deg
+Acceleration RMS       : 0.0203 g
+Acceleration Peak      : 0.0341 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 2 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 1 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 1 -> GATEWAY
+Node ID                 : 1
+Sequence Number        : 375
+Average Distance       : 232.00 mm
+Cumulative Settlement  : 164.60 mm
+Local Change           : 164.60 mm
+Velocity               : -3.482 mm/min
+Velocity Peak          : 23.211 mm/min
+Average Tilt X         : 3.35 deg
+Average Tilt Y         : 7.91 deg
+Acceleration RMS       : 0.1953 g
+Acceleration Peak      : 0.2245 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 1 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 2 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 2 -> NODE 1 -> GATEWAY
+Node ID                 : 2
+Sequence Number        : 372
+Average Distance       : 228.40 mm
+Cumulative Settlement  : 0.00 mm
+Local Change           : 43.30 mm
+Velocity               : 1.168 mm/min
+Velocity Peak          : 17.517 mm/min
+Average Tilt X         : 0.76 deg
+Average Tilt Y         : 1.65 deg
+Acceleration RMS       : 0.0201 g
+Acceleration Peak      : 0.0517 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 2 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 1 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 1 -> GATEWAY
+Node ID                 : 1
+Sequence Number        : 376
+Average Distance       : 233.00 mm
+Cumulative Settlement  : 165.60 mm
+Local Change           : 165.60 mm
+Velocity               : 13.926 mm/min
+Velocity Peak          : 23.211 mm/min
+Average Tilt X         : 3.29 deg
+Average Tilt Y         : 7.92 deg
+Acceleration RMS       : 0.1954 g
+Acceleration Peak      : 0.2041 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 1 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 2 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 2 -> NODE 1 -> GATEWAY
+Node ID                 : 2
+Sequence Number        : 373
+Average Distance       : 227.00 mm
+Cumulative Settlement  : 0.00 mm
+Local Change           : 44.70 mm
+Velocity               : -7.007 mm/min
+Velocity Peak          : 17.517 mm/min
+Average Tilt X         : 0.66 deg
+Average Tilt Y         : 1.69 deg
+Acceleration RMS       : 0.0209 g
+Acceleration Peak      : 0.0534 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 2 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 1 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 1 -> GATEWAY
+Node ID                 : 1
+Sequence Number        : 377
+Average Distance       : 232.00 mm
+Cumulative Settlement  : 164.60 mm
+Local Change           : 164.60 mm
+Velocity               : 0.000 mm/min
+Velocity Peak          : 23.188 mm/min
+Average Tilt X         : 3.40 deg
+Average Tilt Y         : 7.91 deg
+Acceleration RMS       : 0.1957 g
+Acceleration Peak      : 0.2261 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 1 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 2 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 2 -> NODE 1 -> GATEWAY
+Node ID                 : 2
+Sequence Number        : 374
+Average Distance       : 227.20 mm
+Cumulative Settlement  : 0.00 mm
+Local Change           : 44.50 mm
+Velocity               : -7.007 mm/min
+Velocity Peak          : 17.517 mm/min
+Average Tilt X         : 0.61 deg
+Average Tilt Y         : 1.37 deg
+Acceleration RMS       : 0.0222 g
+Acceleration Peak      : 0.0519 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 2 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 1 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 1 -> GATEWAY
+Node ID                 : 1
+Sequence Number        : 378
+Average Distance       : 233.80 mm
+Cumulative Settlement  : 166.40 mm
+Local Change           : 166.40 mm
+Velocity               : 4.637 mm/min
+Velocity Peak          : 17.391 mm/min
+Average Tilt X         : 3.03 deg
+Average Tilt Y         : 7.70 deg
+Acceleration RMS       : 0.1956 g
+Acceleration Peak      : 0.2403 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 1 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 2 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 2 -> NODE 1 -> GATEWAY
+Node ID                 : 2
+Sequence Number        : 375
+Average Distance       : 227.40 mm
+Cumulative Settlement  : 0.00 mm
+Local Change           : 44.30 mm
+Velocity               : 2.336 mm/min
+Velocity Peak          : 17.517 mm/min
+Average Tilt X         : 0.46 deg
+Average Tilt Y         : 2.04 deg
+Acceleration RMS       : 0.0267 g
+Acceleration Peak      : 0.2327 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 2 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 1 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 1 -> GATEWAY
+Node ID                 : 1
+Sequence Number        : 379
+Average Distance       : 234.20 mm
+Cumulative Settlement  : 166.80 mm
+Local Change           : 166.80 mm
+Velocity               : 12.763 mm/min
+Velocity Peak          : 40.611 mm/min
+Average Tilt X         : 3.01 deg
+Average Tilt Y         : 7.82 deg
+Acceleration RMS       : 0.1965 g
+Acceleration Peak      : 0.2440 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 1 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 2 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 2 -> NODE 1 -> GATEWAY
+Node ID                 : 2
+Sequence Number        : 376
+Average Distance       : 226.80 mm
+Cumulative Settlement  : 0.00 mm
+Local Change           : 44.90 mm
+Velocity               : -2.336 mm/min
+Velocity Peak          : 29.194 mm/min
+Average Tilt X         : 0.67 deg
+Average Tilt Y         : 1.63 deg
+Acceleration RMS       : 0.0204 g
+Acceleration Peak      : 0.0488 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 2 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 1 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 1 -> GATEWAY
+Node ID                 : 1
+Sequence Number        : 380
+Average Distance       : 232.40 mm
+Cumulative Settlement  : 165.00 mm
+Local Change           : 165.00 mm
+Velocity               : -8.123 mm/min
+Velocity Peak          : 29.014 mm/min
+Average Tilt X         : 3.29 deg
+Average Tilt Y         : 7.96 deg
+Acceleration RMS       : 0.1955 g
+Acceleration Peak      : 0.2070 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 1 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 2 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 2 -> NODE 1 -> GATEWAY
+Node ID                 : 2
+Sequence Number        : 377
+Average Distance       : 229.20 mm
+Cumulative Settlement  : 0.00 mm
+Local Change           : 42.50 mm
+Velocity               : 10.510 mm/min
+Velocity Peak          : 23.355 mm/min
+Average Tilt X         : 0.70 deg
+Average Tilt Y         : 1.72 deg
+Acceleration RMS       : 0.0201 g
+Acceleration Peak      : 0.0313 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 2 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 1 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 1 -> GATEWAY
+Node ID                 : 1
+Sequence Number        : 381
+Average Distance       : 232.40 mm
+Cumulative Settlement  : 165.00 mm
+Local Change           : 165.00 mm
+Velocity               : -10.434 mm/min
+Velocity Peak          : 28.983 mm/min
+Average Tilt X         : 3.21 deg
+Average Tilt Y         : 7.79 deg
+Acceleration RMS       : 0.1953 g
+Acceleration Peak      : 0.2030 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 1 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 2 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 2 -> NODE 1 -> GATEWAY
+Node ID                 : 2
+Sequence Number        : 378
+Average Distance       : 228.00 mm
+Cumulative Settlement  : 0.00 mm
+Local Change           : 43.70 mm
+Velocity               : 7.007 mm/min
+Velocity Peak          : 23.355 mm/min
+Average Tilt X         : 0.72 deg
+Average Tilt Y         : 1.74 deg
+Acceleration RMS       : 0.0200 g
+Acceleration Peak      : 0.0302 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 2 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 1 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 1 -> GATEWAY
+Node ID                 : 1
+Sequence Number        : 382
+Average Distance       : 233.40 mm
+Cumulative Settlement  : 166.00 mm
+Local Change           : 166.00 mm
+Velocity               : 5.797 mm/min
+Velocity Peak          : 23.186 mm/min
+Average Tilt X         : 3.29 deg
+Average Tilt Y         : 7.81 deg
+Acceleration RMS       : 0.1959 g
+Acceleration Peak      : 0.2062 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 1 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 2 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 2 -> NODE 1 -> GATEWAY
+Node ID                 : 2
+Sequence Number        : 379
+Average Distance       : 228.60 mm
+Cumulative Settlement  : 0.00 mm
+Local Change           : 43.10 mm
+Velocity               : -3.503 mm/min
+Velocity Peak          : 23.355 mm/min
+Average Tilt X         : 0.53 deg
+Average Tilt Y         : 1.82 deg
+Acceleration RMS       : 0.0199 g
+Acceleration Peak      : 0.0274 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 2 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 1 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 1 -> GATEWAY
+Node ID                 : 1
+Sequence Number        : 383
+Average Distance       : 233.60 mm
+Cumulative Settlement  : 166.20 mm
+Local Change           : 166.20 mm
+Velocity               : 6.957 mm/min
+Velocity Peak          : 40.580 mm/min
+Average Tilt X         : 3.26 deg
+Average Tilt Y         : 7.80 deg
+Acceleration RMS       : 0.1951 g
+Acceleration Peak      : 0.2045 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 1 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 2 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 2 -> NODE 1 -> GATEWAY
+Node ID                 : 2
+Sequence Number        : 380
+Average Distance       : 226.80 mm
+Cumulative Settlement  : 0.00 mm
+Local Change           : 44.90 mm
+Velocity               : -7.007 mm/min
+Velocity Peak          : 23.355 mm/min
+Average Tilt X         : 0.54 deg
+Average Tilt Y         : 1.62 deg
+Acceleration RMS       : 0.0196 g
+Acceleration Peak      : 0.0279 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 2 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 1 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 1 -> GATEWAY
+Node ID                 : 1
+Sequence Number        : 384
+Average Distance       : 232.00 mm
+Cumulative Settlement  : 164.60 mm
+Local Change           : 164.60 mm
+Velocity               : -8.116 mm/min
+Velocity Peak          : 40.580 mm/min
+Average Tilt X         : 3.15 deg
+Average Tilt Y         : 7.92 deg
+Acceleration RMS       : 0.1951 g
+Acceleration Peak      : 0.2026 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 1 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 2 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 2 -> NODE 1 -> GATEWAY
+Node ID                 : 2
+Sequence Number        : 381
+Average Distance       : 227.40 mm
+Cumulative Settlement  : 0.00 mm
+Local Change           : 44.30 mm
+Velocity               : -7.007 mm/min
+Velocity Peak          : 17.517 mm/min
+Average Tilt X         : 0.56 deg
+Average Tilt Y         : 1.66 deg
+Acceleration RMS       : 0.0198 g
+Acceleration Peak      : 0.0299 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 2 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 1 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 1 -> GATEWAY
+Node ID                 : 1
+Sequence Number        : 385
+Average Distance       : 233.20 mm
+Cumulative Settlement  : 165.80 mm
+Local Change           : 165.80 mm
+Velocity               : -2.319 mm/min
+Velocity Peak          : 11.594 mm/min
+Average Tilt X         : 3.29 deg
+Average Tilt Y         : 7.83 deg
+Acceleration RMS       : 0.1950 g
+Acceleration Peak      : 0.2051 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 1 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 2 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 2 -> NODE 1 -> GATEWAY
+Node ID                 : 2
+Sequence Number        : 382
+Average Distance       : 228.20 mm
+Cumulative Settlement  : 0.00 mm
+Local Change           : 43.50 mm
+Velocity               : 8.174 mm/min
+Velocity Peak          : 29.194 mm/min
+Average Tilt X         : 0.70 deg
+Average Tilt Y         : 1.76 deg
+Acceleration RMS       : 0.0195 g
+Acceleration Peak      : 0.0275 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 2 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 1 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 1 -> GATEWAY
+Node ID                 : 1
+Sequence Number        : 386
+Average Distance       : 232.20 mm
+Cumulative Settlement  : 164.80 mm
+Local Change           : 164.80 mm
+Velocity               : 1.159 mm/min
+Velocity Peak          : 23.188 mm/min
+Average Tilt X         : 3.27 deg
+Average Tilt Y         : 7.98 deg
+Acceleration RMS       : 0.1951 g
+Acceleration Peak      : 0.2036 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 1 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 2 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 2 -> NODE 1 -> GATEWAY
+Node ID                 : 2
+Sequence Number        : 383
+Average Distance       : 226.60 mm
+Cumulative Settlement  : 0.00 mm
+Local Change           : 45.10 mm
+Velocity               : -4.671 mm/min
+Velocity Peak          : 35.033 mm/min
+Average Tilt X         : 0.60 deg
+Average Tilt Y         : 1.78 deg
+Acceleration RMS       : 0.0200 g
+Acceleration Peak      : 0.0281 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 2 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 1 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 1 -> GATEWAY
+Node ID                 : 1
+Sequence Number        : 387
+Average Distance       : 233.60 mm
+Cumulative Settlement  : 166.20 mm
+Local Change           : 166.20 mm
+Velocity               : 2.319 mm/min
+Velocity Peak          : 28.986 mm/min
+Average Tilt X         : 3.22 deg
+Average Tilt Y         : 7.82 deg
+Acceleration RMS       : 0.1955 g
+Acceleration Peak      : 0.2078 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 1 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 2 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 2 -> NODE 1 -> GATEWAY
+Node ID                 : 2
+Sequence Number        : 384
+Average Distance       : 227.60 mm
+Cumulative Settlement  : 0.00 mm
+Local Change           : 44.10 mm
+Velocity               : -3.503 mm/min
+Velocity Peak          : 11.678 mm/min
+Average Tilt X         : 0.69 deg
+Average Tilt Y         : 1.62 deg
+Acceleration RMS       : 0.0202 g
+Acceleration Peak      : 0.0304 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 2 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 1 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 1 -> GATEWAY
+Node ID                 : 1
+Sequence Number        : 388
+Average Distance       : 233.00 mm
+Cumulative Settlement  : 165.60 mm
+Local Change           : 165.60 mm
+Velocity               : 4.638 mm/min
+Velocity Peak          : 34.783 mm/min
+Average Tilt X         : 3.16 deg
+Average Tilt Y         : 7.82 deg
+Acceleration RMS       : 0.1953 g
+Acceleration Peak      : 0.2037 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 1 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 2 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 2 -> NODE 1 -> GATEWAY
+Node ID                 : 2
+Sequence Number        : 385
+Average Distance       : 227.40 mm
+Cumulative Settlement  : 0.00 mm
+Local Change           : 44.30 mm
+Velocity               : 4.671 mm/min
+Velocity Peak          : 52.550 mm/min
+Average Tilt X         : 0.74 deg
+Average Tilt Y         : 1.66 deg
+Acceleration RMS       : 0.0209 g
+Acceleration Peak      : 0.0543 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 2 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 1 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 1 -> GATEWAY
+Node ID                 : 1
+Sequence Number        : 389
+Average Distance       : 233.00 mm
+Cumulative Settlement  : 165.60 mm
+Local Change           : 165.60 mm
+Velocity               : -3.478 mm/min
+Velocity Peak          : 23.186 mm/min
+Average Tilt X         : 3.23 deg
+Average Tilt Y         : 7.99 deg
+Acceleration RMS       : 0.1946 g
+Acceleration Peak      : 0.2204 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 1 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 2 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 2 -> NODE 1 -> GATEWAY
+Node ID                 : 2
+Sequence Number        : 386
+Average Distance       : 228.60 mm
+Cumulative Settlement  : 0.00 mm
+Local Change           : 43.10 mm
+Velocity               : 5.839 mm/min
+Velocity Peak          : 17.517 mm/min
+Average Tilt X         : 0.70 deg
+Average Tilt Y         : 1.66 deg
+Acceleration RMS       : 0.0199 g
+Acceleration Peak      : 0.0288 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 2 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 1 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 1 -> GATEWAY
+Node ID                 : 1
+Sequence Number        : 390
+Average Distance       : 232.40 mm
+Cumulative Settlement  : 165.00 mm
+Local Change           : 165.00 mm
+Velocity               : -3.478 mm/min
+Velocity Peak          : 34.779 mm/min
+Average Tilt X         : 3.29 deg
+Average Tilt Y         : 7.84 deg
+Acceleration RMS       : 0.1954 g
+Acceleration Peak      : 0.2052 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 1 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 2 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 2 -> NODE 1 -> GATEWAY
+Node ID                 : 2
+Sequence Number        : 387
+Average Distance       : 228.40 mm
+Cumulative Settlement  : 0.00 mm
+Local Change           : 43.30 mm
+Velocity               : 5.839 mm/min
+Velocity Peak          : 52.550 mm/min
+Average Tilt X         : 0.61 deg
+Average Tilt Y         : 1.68 deg
+Acceleration RMS       : 0.0201 g
+Acceleration Peak      : 0.0299 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 2 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 1 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 1 -> GATEWAY
+Node ID                 : 1
+Sequence Number        : 391
+Average Distance       : 232.40 mm
+Cumulative Settlement  : 165.00 mm
+Local Change           : 165.00 mm
+Velocity               : -3.478 mm/min
+Velocity Peak          : 23.184 mm/min
+Average Tilt X         : 3.32 deg
+Average Tilt Y         : 7.90 deg
+Acceleration RMS       : 0.1955 g
+Acceleration Peak      : 0.2035 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 1 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 2 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 2 -> NODE 1 -> GATEWAY
+Node ID                 : 2
+Sequence Number        : 388
+Average Distance       : 228.00 mm
+Cumulative Settlement  : 0.00 mm
+Local Change           : 43.70 mm
+Velocity               : -3.503 mm/min
+Velocity Peak          : 11.678 mm/min
+Average Tilt X         : 0.81 deg
+Average Tilt Y         : 1.75 deg
+Acceleration RMS       : 0.0198 g
+Acceleration Peak      : 0.0288 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 2 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 1 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 1 -> GATEWAY
+Node ID                 : 1
+Sequence Number        : 392
+Average Distance       : 233.40 mm
+Cumulative Settlement  : 166.00 mm
+Local Change           : 166.00 mm
+Velocity               : 5.802 mm/min
+Velocity Peak          : 34.810 mm/min
+Average Tilt X         : 3.17 deg
+Average Tilt Y         : 7.82 deg
+Acceleration RMS       : 0.1951 g
+Acceleration Peak      : 0.2050 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 1 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 2 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 2 -> NODE 1 -> GATEWAY
+Node ID                 : 2
+Sequence Number        : 389
+Average Distance       : 227.60 mm
+Cumulative Settlement  : 0.00 mm
+Local Change           : 44.10 mm
+Velocity               : -4.671 mm/min
+Velocity Peak          : 17.517 mm/min
+Average Tilt X         : 0.95 deg
+Average Tilt Y         : 1.53 deg
+Acceleration RMS       : 0.0200 g
+Acceleration Peak      : 0.0424 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 2 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 1 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 1 -> GATEWAY
+Node ID                 : 1
+Sequence Number        : 393
+Average Distance       : 232.20 mm
+Cumulative Settlement  : 164.80 mm
+Local Change           : 164.80 mm
+Velocity               : -1.161 mm/min
+Velocity Peak          : 17.408 mm/min
+Average Tilt X         : 3.21 deg
+Average Tilt Y         : 7.84 deg
+Acceleration RMS       : 0.1953 g
+Acceleration Peak      : 0.2191 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 1 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 2 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 2 -> NODE 1 -> GATEWAY
+Node ID                 : 2
+Sequence Number        : 390
+Average Distance       : 228.60 mm
+Cumulative Settlement  : 0.00 mm
+Local Change           : 43.10 mm
+Velocity               : 3.503 mm/min
+Velocity Peak          : 23.355 mm/min
+Average Tilt X         : 0.70 deg
+Average Tilt Y         : 1.66 deg
+Acceleration RMS       : 0.0200 g
+Acceleration Peak      : 0.0314 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 2 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 1 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 1 -> GATEWAY
+Node ID                 : 1
+Sequence Number        : 394
+Average Distance       : 233.00 mm
+Cumulative Settlement  : 165.60 mm
+Local Change           : 165.60 mm
+Velocity               : -2.319 mm/min
+Velocity Peak          : 11.594 mm/min
+Average Tilt X         : 3.22 deg
+Average Tilt Y         : 7.87 deg
+Acceleration RMS       : 0.1953 g
+Acceleration Peak      : 0.2053 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 1 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 2 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 2 -> NODE 1 -> GATEWAY
+Node ID                 : 2
+Sequence Number        : 391
+Average Distance       : 227.80 mm
+Cumulative Settlement  : 0.00 mm
+Local Change           : 43.90 mm
+Velocity               : 1.168 mm/min
+Velocity Peak          : 40.872 mm/min
+Average Tilt X         : 0.63 deg
+Average Tilt Y         : 1.70 deg
+Acceleration RMS       : 0.0200 g
+Acceleration Peak      : 0.0327 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 2 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 1 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 1 -> GATEWAY
+Node ID                 : 1
+Sequence Number        : 395
+Average Distance       : 234.00 mm
+Cumulative Settlement  : 166.60 mm
+Local Change           : 166.60 mm
+Velocity               : 10.435 mm/min
+Velocity Peak          : 28.986 mm/min
+Average Tilt X         : 3.34 deg
+Average Tilt Y         : 8.07 deg
+Acceleration RMS       : 0.1955 g
+Acceleration Peak      : 0.2098 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 1 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 2 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 2 -> NODE 1 -> GATEWAY
+Node ID                 : 2
+Sequence Number        : 392
+Average Distance       : 228.20 mm
+Cumulative Settlement  : 0.00 mm
+Local Change           : 43.50 mm
+Velocity               : -2.336 mm/min
+Velocity Peak          : 29.194 mm/min
+Average Tilt X         : 0.65 deg
+Average Tilt Y         : 1.79 deg
+Acceleration RMS       : 0.0198 g
+Acceleration Peak      : 0.0305 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 2 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 1 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 1 -> GATEWAY
+Node ID                 : 1
+Sequence Number        : 396
+Average Distance       : 233.40 mm
+Cumulative Settlement  : 166.00 mm
+Local Change           : 166.00 mm
+Velocity               : 2.321 mm/min
+Velocity Peak          : 17.406 mm/min
+Average Tilt X         : 3.23 deg
+Average Tilt Y         : 7.99 deg
+Acceleration RMS       : 0.1957 g
+Acceleration Peak      : 0.2084 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 1 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 2 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 2 -> NODE 1 -> GATEWAY
+Node ID                 : 2
+Sequence Number        : 393
+Average Distance       : 227.20 mm
+Cumulative Settlement  : 0.00 mm
+Local Change           : 44.50 mm
+Velocity               : -3.503 mm/min
+Velocity Peak          : 11.678 mm/min
+Average Tilt X         : 0.61 deg
+Average Tilt Y         : 1.72 deg
+Acceleration RMS       : 0.0201 g
+Acceleration Peak      : 0.0284 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 2 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 1 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 1 -> GATEWAY
+Node ID                 : 1
+Sequence Number        : 397
+Average Distance       : 234.20 mm
+Cumulative Settlement  : 166.80 mm
+Local Change           : 166.80 mm
+Velocity               : 1.160 mm/min
+Velocity Peak          : 17.406 mm/min
+Average Tilt X         : 3.28 deg
+Average Tilt Y         : 8.00 deg
+Acceleration RMS       : 0.1957 g
+Acceleration Peak      : 0.2048 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 1 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 2 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 2 -> NODE 1 -> GATEWAY
+Node ID                 : 2
+Sequence Number        : 394
+Average Distance       : 229.40 mm
+Cumulative Settlement  : 0.00 mm
+Local Change           : 42.30 mm
+Velocity               : 7.007 mm/min
+Velocity Peak          : 35.033 mm/min
+Average Tilt X         : 0.60 deg
+Average Tilt Y         : 1.88 deg
+Acceleration RMS       : 0.0194 g
+Acceleration Peak      : 0.0299 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 2 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 1 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 1 -> GATEWAY
+Node ID                 : 1
+Sequence Number        : 398
+Average Distance       : 232.60 mm
+Cumulative Settlement  : 165.20 mm
+Local Change           : 165.20 mm
+Velocity               : -4.642 mm/min
+Velocity Peak          : 23.211 mm/min
+Average Tilt X         : 3.27 deg
+Average Tilt Y         : 7.94 deg
+Acceleration RMS       : 0.1958 g
+Acceleration Peak      : 0.3013 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 1 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 2 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 2 -> NODE 1 -> GATEWAY
+Node ID                 : 2
+Sequence Number        : 395
+Average Distance       : 227.60 mm
+Cumulative Settlement  : 0.00 mm
+Local Change           : 44.10 mm
+Velocity               : 2.336 mm/min
+Velocity Peak          : 11.678 mm/min
+Average Tilt X         : 0.54 deg
+Average Tilt Y         : 1.81 deg
+Acceleration RMS       : 0.0204 g
+Acceleration Peak      : 0.0561 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 2 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 1 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 1 -> GATEWAY
+Node ID                 : 1
+Sequence Number        : 399
+Average Distance       : 232.60 mm
+Cumulative Settlement  : 165.20 mm
+Local Change           : 165.20 mm
+Velocity               : -9.284 mm/min
+Velocity Peak          : 29.014 mm/min
+Average Tilt X         : 3.33 deg
+Average Tilt Y         : 7.79 deg
+Acceleration RMS       : 0.1960 g
+Acceleration Peak      : 0.2276 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 1 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 2 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 2 -> NODE 1 -> GATEWAY
+Node ID                 : 2
+Sequence Number        : 396
+Average Distance       : 228.00 mm
+Cumulative Settlement  : 0.00 mm
+Local Change           : 43.70 mm
+Velocity               : -8.174 mm/min
+Velocity Peak          : 35.033 mm/min
+Average Tilt X         : 0.85 deg
+Average Tilt Y         : 1.82 deg
+Acceleration RMS       : 0.0216 g
+Acceleration Peak      : 0.0809 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 2 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 1 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 1 -> GATEWAY
+Node ID                 : 1
+Sequence Number        : 400
+Average Distance       : 233.60 mm
+Cumulative Settlement  : 166.20 mm
+Local Change           : 166.20 mm
+Velocity               : 5.802 mm/min
+Velocity Peak          : 40.615 mm/min
+Average Tilt X         : 3.24 deg
+Average Tilt Y         : 7.91 deg
+Acceleration RMS       : 0.1962 g
+Acceleration Peak      : 0.3120 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 1 DATA STATUS: RECEIVED
+----------------------------------------
+
+========================================
+NODE 2 DATA RECEIVED AT GATEWAY
+========================================
+Communication path:
+NODE 2 -> NODE 1 -> GATEWAY
+Node ID                 : 2
+Sequence Number        : 397
+Average Distance       : 227.60 mm
+Cumulative Settlement  : 0.00 mm
+Local Change           : 44.10 mm
+Velocity               : -0.000 mm/min
+Velocity Peak          : 11.678 mm/min
+Average Tilt X         : 0.66 deg
+Average Tilt Y         : 1.92 deg
+Acceleration RMS       : 0.0200 g
+Acceleration Peak      : 0.0455 g
+Packet Type            : 1
+Distance Sensor        : VALID
+----------------------------------------
+NODE 2 DATA STATUS: RECEIVED
+----------------------------------------

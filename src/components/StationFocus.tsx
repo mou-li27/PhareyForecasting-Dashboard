@@ -33,36 +33,88 @@ const DISTRICT_BASINS: Record<string, string[]> = {
 };
 
 // Helper to generate dynamic insights based on station status, trend, and rainfall
+// Threshold bands per KY station for readable insight text
+const KY_THRESHOLDS: Record<string, { safe: number; watch: number; warning: number; severeWarning: number; emergency: number; unit: string }> = {
+  'KY.1': { safe: 7.0, watch: 8.0, warning: 9.0, severeWarning: 9.4, emergency: 9.4, unit: 'm MSL' },
+  'KY.2': { safe: 5.0, watch: 6.0, warning: 7.0, severeWarning: 8.0, emergency: 8.0, unit: 'm MSL' },
+  'KY.3': { safe: 6.0, watch: 7.5, warning: 9.0, severeWarning: 10.0, emergency: 10.0, unit: 'm MSL' },
+};
+
+// Upstream reference per station for insight text
+const UPSTREAM_REF: Record<string, string> = {
+  'KY.1': 'GFS north rainfall',
+  'Y.20': 'KY.1 (Nong Chan Bridge)',
+  'Y.38': 'local catchment rainfall',
+  'Y.34': 'local catchment rainfall',
+  'KY.2': 'Y.20 (Ban Huai Sak) and tributaries Y.38 / Y.34',
+  'Y.1C': 'KY.2 (Wang Hong Bridge)',
+  'KY.3': 'Y.1C (Ban Nam Khong)',
+};
+
 function generateInsights(station: StationReading): string[] {
   const insights: string[] = [];
   const rain = station.rainfall ?? 0;
   const trend = station.trendDirection;
   const cap = station.capacityPercent;
+  const isKYStation = station.stationId.startsWith('KY');
+  const kyThresh = KY_THRESHOLDS[station.stationId];
+  const upstreamRef = UPSTREAM_REF[station.stationId] || 'upstream stations';
+  const wl = station.waterLevel;
 
   if (station.status === 'safe') {
-    if (rain < 5 && trend !== 'rising') {
-      insights.push(`Conditions are dry — GFS reports negligible rainfall. River is in natural recession; discharge expected to continue falling or stabilise over the next 6 hours.`);
-      insights.push(`No flood risk indicators present. Routine monitoring is sufficient.`);
-    } else if (rain < 20) {
-      insights.push(`Light rainfall (≈${rain.toFixed(1)} mm/6hr) is contributing to stable baseflow at ${station.stationId}.`);
-      insights.push(`Channel utilisation is low (${formatPercent(cap)}%). No immediate action required.`);
+    if (isKYStation && kyThresh) {
+      if (rain < 5 && trend !== 'rising') {
+        insights.push(`Water level at ${formatWaterLevel(wl)} m MSL is well below the Watch threshold of ${kyThresh.safe} m. River is in natural recession with negligible rainfall.`);
+        insights.push(`No flood risk indicators present. Routine monitoring is sufficient.`);
+      } else {
+        insights.push(`Water level at ${formatWaterLevel(wl)} m MSL is within the Safe band (below ${kyThresh.safe} m). Rainfall of ≈${rain.toFixed(1)} mm recorded; discharge is ${trend}.`);
+        insights.push(`No action required. Monitor if rainfall increases or ${upstreamRef} reports a rising trend.`);
+      }
     } else {
-      insights.push(`Moderate rainfall (≈${rain.toFixed(1)} mm/6hr) is sustaining current flow. Discharge is ${trend} but remains within safe operational limits.`);
-      insights.push(`Monitor upstream tributaries. Alert thresholds not yet approached.`);
+      if (rain < 5 && trend !== 'rising') {
+        insights.push(`Conditions are dry — recorded rainfall is negligible. River is in natural recession; discharge expected to continue falling or stabilise over the next 6 hours.`);
+        insights.push(`No flood risk indicators present. Routine monitoring is sufficient.`);
+      } else if (rain < 20) {
+        insights.push(`Light rainfall (≈${rain.toFixed(1)} mm) is contributing to stable baseflow at ${station.stationId}. Channel utilisation is low at ${formatPercent(cap)}%.`);
+        insights.push(`No immediate action required. Alert thresholds not yet approached.`);
+      } else {
+        insights.push(`Moderate rainfall (≈${rain.toFixed(1)} mm) is sustaining current flow at ${formatPercent(cap)}% of channel capacity. Discharge is ${trend} but within safe operational limits.`);
+        insights.push(`Monitor ${upstreamRef} closely. Alert thresholds not yet approached.`);
+      }
     }
   } else if (station.status === 'watch') {
-    if (rain < 10) {
-      insights.push(`Discharge is elevated (${formatPercent(cap)}% capacity) from a prior rain event — GFS now shows minimal rainfall, so a natural recession is expected over the next 6 hours.`);
-      insights.push(`Continue monitoring; no immediate escalation expected unless upstream conditions change.`);
+    if (isKYStation && kyThresh) {
+      if (rain < 10) {
+        insights.push(`Water level at ${formatWaterLevel(wl)} m MSL is in the Watch band (${kyThresh.safe}–${kyThresh.watch} m). Current rainfall is minimal; discharge is ${trend}. A gradual recession back to Safe is expected.`);
+        insights.push(`Continue monitoring. Escalation to Warning requires the water level to rise above ${kyThresh.watch} m — unlikely unless ${upstreamRef} sends a new pulse.`);
+      } else {
+        insights.push(`Water level at ${formatWaterLevel(wl)} m MSL is in the Watch band (${kyThresh.safe}–${kyThresh.watch} m) with ≈${rain.toFixed(1)} mm ongoing rainfall. If rainfall persists, level may rise toward the Warning threshold of ${kyThresh.watch} m.`);
+        insights.push(`Pre-position response teams. Monitor ${upstreamRef} closely for any acceleration in discharge.`);
+      }
     } else {
-      insights.push(`Water levels are elevated and GFS reports ≈${rain.toFixed(1)} mm/6hr ongoing rainfall upstream. Based on past events, this often precedes minor agricultural flooding in low-lying areas.`);
-      insights.push(`Recommend pre-positioning emergency response teams. Discharge is currently ${trend}.`);
+      if (rain < 10) {
+        insights.push(`Discharge is at ${formatPercent(cap)}% of channel capacity — elevated from a prior rain event. Current rainfall is minimal, so a natural recession is expected over the next 6 hours.`);
+        insights.push(`Continue monitoring; no immediate escalation expected unless ${upstreamRef} changes significantly.`);
+      } else {
+        insights.push(`Channel at ${formatPercent(cap)}% capacity with ≈${rain.toFixed(1)} mm of recorded rainfall. Based on past events at this signature, minor agricultural flooding in adjacent low-lying areas is possible.`);
+        insights.push(`Recommend pre-positioning emergency response teams. Discharge is currently ${trend}. Monitor ${upstreamRef} for any surge.`);
+      }
     }
-  } else if (station.status === 'warning') {
-    insights.push(`ALERT: Channel capacity at ${formatPercent(cap)}% with GFS rainfall of ≈${rain.toFixed(1)} mm/6hr. Historical events with this signature have resulted in moderate urban flooding within 6–12 hours.`);
-    insights.push(`Action Required: Prepare local evacuation routes and deploy mobile pumps to identified chokepoints.`);
+  } else if (station.status === 'warning' || station.status === 'severe-warning') {
+    if (isKYStation && kyThresh) {
+      const bandLow = station.status === 'warning' ? kyThresh.watch : kyThresh.warning;
+      const bandHigh = station.status === 'warning' ? kyThresh.warning : kyThresh.severeWarning;
+      insights.push(`ALERT: Water level at ${formatWaterLevel(wl)} m MSL is in the ${station.status === 'severe-warning' ? 'Severe Warning' : 'Warning'} band (${bandLow}–${bandHigh} m). Recorded rainfall ≈${rain.toFixed(1)} mm. Historical events at this level have caused riverside and low-lying area flooding within 3–6 hours.`);
+    } else {
+      insights.push(`ALERT: Channel at ${formatPercent(cap)}% capacity with recorded rainfall ≈${rain.toFixed(1)} mm. Upstream flow from ${upstreamRef} is contributing to rising levels. Historical events with this signature result in moderate urban flooding within 6–12 hours.`);
+    }
+    insights.push(`Action Required: Prepare local evacuation routes, deploy mobile pumps to identified chokepoints, and notify downstream communities.`);
   } else {
-    insights.push(`EMERGENCY: ${station.stationId} has exceeded safe capacity (${formatPercent(cap)}%). GFS confirms ≈${rain.toFixed(1)} mm/6hr ongoing precipitation.`);
+    if (isKYStation && kyThresh) {
+      insights.push(`EMERGENCY: Water level at ${formatWaterLevel(wl)} m MSL has exceeded the Emergency threshold of ${kyThresh.emergency} m. Telemetry confirms ≈${rain.toFixed(1)} mm ongoing precipitation. Immediate overbank flooding is occurring or imminent.`);
+    } else {
+      insights.push(`EMERGENCY: ${station.stationId} has exceeded 120% of channel capacity (current: ${formatPercent(cap)}%). Upstream surge from ${upstreamRef} is the primary driver. Telemetry confirms ≈${rain.toFixed(1)} mm ongoing precipitation.`);
+    }
     insights.push(`Immediate action required: initiate full evacuation of adjacent zones and activate emergency flood response protocols.`);
   }
 
@@ -172,7 +224,7 @@ export default function StationFocus() {
           boxShadow: '0 2px 4px rgba(0,0,0,0.02)'
         }}>
           <div style={{ fontSize: '0.75rem', fontWeight: 700, color: '#475569', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-            Historical Insight & Analysis
+            Live Status & Analysis
           </div>
           <ul style={{ margin: 0, paddingLeft: '16px', fontSize: '0.8rem', color: '#1e293b', lineHeight: '1.5' }}>
             {insights.map((text, i) => <li key={i} style={{ marginBottom: '4px' }}>{text}</li>)}
@@ -292,3 +344,4 @@ export default function StationFocus() {
     </div>
   );
 }
+
