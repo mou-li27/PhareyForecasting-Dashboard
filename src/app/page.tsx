@@ -27,35 +27,18 @@ const LIGHT = {
   iconBg4: '#e0e7ff',
 };
 
-const DARK = {
-  bg: '#0b1120',
-  bgAlt: '#111827',
-  text: '#f1f5f9',
-  textSec: '#94a3b8',
-  textMuted: '#64748b',
-  border: '#1e293b',
-  accent: '#3b82f6',
-  cardBg: '#111827',
-  cardBorder: '#1e293b',
-  iconBg1: 'rgba(59,130,246,0.15)',
-  iconBg2: 'rgba(6,182,212,0.15)',
-  iconBg3: 'rgba(34,197,94,0.15)',
-  iconBg4: 'rgba(99,102,241,0.15)',
-};
 
 export default function LandingPage() {
-  const [isDark, setIsDark] = useState(false);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    setIsDark(prefersDark);
     setMounted(true);
   }, []);
 
   if (!mounted) return null;
 
-  const t = isDark ? DARK : LIGHT;
+  const t = LIGHT;
+  const isDark = false; // Hardcode false to satisfy the HeroMap prop
 
   return (
     <div style={{
@@ -127,29 +110,7 @@ export default function LandingPage() {
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            <button
-              onClick={() => setIsDark(!isDark)}
-              aria-label="Toggle theme"
-              style={{
-                width: 38,
-                height: 38,
-                borderRadius: 10,
-                border: `1px solid ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.08)'}`,
-                background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                cursor: 'pointer',
-                color: t.text,
-                transition: 'all 0.2s',
-              }}
-            >
-              {isDark ? (
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
-              ) : (
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-              )}
-            </button>
+
             <Link href="/dashboard" style={{
               padding: '9px 20px',
               background: t.accent,
